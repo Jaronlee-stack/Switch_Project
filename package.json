@@ -1,0 +1,24 @@
+{
+  "name": "switch_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaronlee-stack/Switch_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jaronlee-stack/Switch_Project/issues"
+  },
+  "homepage": "https://github.com/Jaronlee-stack/Switch_Project#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
