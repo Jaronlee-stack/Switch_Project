@@ -57,12 +57,18 @@ cd <project-folder>
 
 ---
 
-## Step 4: Install Dependencies
+## Step 4: Install Project Dependencies
 
-Even if the repository already contains a `node_modules` folder, **always run the following command after cloning** to ensure all dependencies are correctly installed for your computer.
+Install the project's dependencies by running:
 
 ```bash
 npm install
+```
+
+After the installation completes, install MediaPipe:
+
+```bash
+npm install @mediapipe/tasks-vision
 ```
 
 npm will read the `package.json` and `package-lock.json` files and install or verify all required packages.
