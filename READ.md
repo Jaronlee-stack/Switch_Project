@@ -1,275 +1,132 @@
-# Setting Up Node.js and Installing Project Dependencies
+# Getting Started
 
-This guide is for users who have **never used Node.js or npm before**.
-
----
-
-# Prerequisites
-
-* A computer running **Windows**, **macOS**, or **Linux**
-* An internet connection
-* A terminal application:
-
-  * **Windows:** Command Prompt, PowerShell, or Windows Terminal
-  * **macOS:** Terminal
-  * **Linux:** Terminal
+This guide will help you set up the project if you have never used Node.js before.
 
 ---
 
-# Step 1: Install Node.js
+## Step 1: Install Node.js
 
-Node.js includes **npm (Node Package Manager)**, so installing Node.js will automatically install npm.
+Node.js includes npm (Node Package Manager).
 
-1. Visit the official Node.js website:
-
-   https://nodejs.org/
-
-2. Download the **LTS (Long-Term Support)** version.
-
-   > Do **not** download the "Current" version unless instructed.
-
-3. Run the installer.
-
-4. Keep the default installation options and click **Next** until installation completes.
-
-5. Click **Finish**.
+1. Go to https://nodejs.org/
+2. Download the **LTS** version.
+3. Install it using the default settings.
+4. Restart your terminal after installation.
 
 ---
 
-# Step 2: Verify the Installation
+## Step 2: Verify Installation
 
-Open a new terminal and run:
+Open a terminal and run:
 
 ```bash
 node -v
 ```
 
-You should see something similar to:
+You should see a version number, for example:
 
 ```text
 v22.15.0
 ```
 
-Next, verify npm:
+Next, run:
 
 ```bash
 npm -v
 ```
 
-Example output:
+You should also see a version number.
 
-```text
-10.9.2
-```
-
-If both commands display version numbers, the installation was successful.
+If both commands work, Node.js has been installed successfully.
 
 ---
 
-# Step 3: Download the Project
+## Step 3: Clone the Repository
 
-Clone the repository or download the project ZIP.
-
-If using Git:
+Clone the project:
 
 ```bash
 git clone <repository-url>
 ```
 
-Then navigate into the project folder:
+Move into the project folder:
 
 ```bash
 cd <project-folder>
 ```
 
-Example:
-
-```bash
-cd my-project
-```
-
 ---
 
-# Step 4: Install Project Dependencies
+## Step 4: Install Dependencies
 
-Inside the project folder, run:
+Even if the repository already contains a `node_modules` folder, **always run the following command after cloning** to ensure all dependencies are correctly installed for your computer.
 
 ```bash
 npm install
 ```
 
-npm will read the project's `package.json` file and automatically install all required packages.
+npm will read the `package.json` and `package-lock.json` files and install or verify all required packages.
 
-This may take a few minutes on the first run.
-
-After installation completes, a new folder named:
-
-```text
-node_modules/
-```
-
-will be created automatically.
-
-> **Do not edit anything inside the `node_modules` folder.**
+The installation may take a few minutes.
 
 ---
 
-# Step 5: Verify Installation
+## Step 5: Verify Everything Installed
 
-You should now see a folder structure similar to:
+You should now have the following files:
 
 ```text
-my-project/
+project/
 │
 ├── node_modules/
 ├── package.json
 ├── package-lock.json
-├── src/
-└── ...
-```
-
-The project dependencies are now installed.
-
----
-
-# Step 6: Create a `.gitignore` File
-
-The `node_modules` folder is very large and **should never be committed to Git**.
-
-If the project does not already contain a `.gitignore` file, create one in the project's root directory.
-
-Example:
-
-```text
-my-project/
 ├── .gitignore
-├── package.json
-├── package-lock.json
-└── node_modules/
+└── README.md
 ```
 
-Open the `.gitignore` file and add the following:
+Your project is now ready to use.
+
+---
+
+## About `.gitignore`
+
+The project already includes a `.gitignore` file.
+
+It contains:
 
 ```gitignore
 node_modules/
 ```
 
-This tells Git to ignore the `node_modules` folder.
+This prevents Git from uploading the `node_modules` folder to the repository.
 
-You may also wish to ignore other common files:
-
-```gitignore
-node_modules/
-
-.env
-
-.DS_Store
-
-.vscode/
-```
+If you create additional temporary files (such as `.env`), remember to add them to `.gitignore`.
 
 ---
 
-# Step 7: Check Git Status
+## Troubleshooting
 
-Run:
+### `'node' is not recognized`
 
-```bash
-git status
-```
+Restart your terminal or reinstall Node.js.
 
-You should **NOT** see `node_modules` listed under files to be committed.
+### `'npm' is not recognized`
 
-You should only see files that belong to your project, such as:
+Reinstall Node.js from https://nodejs.org/.
 
-```text
-package.json
-package-lock.json
-src/
-README.md
-```
+### `npm install` fails
 
----
-
-# Common Commands
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Install a new package:
-
-```bash
-npm install <package-name>
-```
-
-Example:
-
-```bash
-npm install express
-```
-
-Install a package for development only:
-
-```bash
-npm install --save-dev <package-name>
-```
-
-Example:
-
-```bash
-npm install --save-dev nodemon
-```
-
-Update installed packages:
-
-```bash
-npm update
-```
-
-Remove a package:
-
-```bash
-npm uninstall <package-name>
-```
-
----
-
-# Troubleshooting
-
-## `'node' is not recognized as an internal or external command`
-
-* Restart your terminal after installing Node.js.
-* If the problem persists, restart your computer.
-* Reinstall Node.js if necessary.
-
----
-
-## `'npm' is not recognized`
-
-npm is installed together with Node.js.
-
-Verify that Node.js was installed correctly by running:
-
-```bash
-node -v
-```
-
-If this does not work, reinstall Node.js.
-
----
-
-## `npm install` fails
-
-Try clearing the npm cache:
+Try:
 
 ```bash
 npm cache clean --force
+npm install
 ```
 
-Then run:
+### `package.json` cannot be found
+
+Make sure you are inside the project folder before running:
 
 ```bash
 npm install
@@ -277,28 +134,6 @@ npm install
 
 ---
 
-## Missing `package.json`
+## You're Ready!
 
-The command:
-
-```bash
-npm install
-```
-
-must be run inside the project folder that contains:
-
-```text
-package.json
-```
-
-Navigate into the correct folder first:
-
-```bash
-cd <project-folder>
-```
-
----
-
-# You're Ready!
-
-Once `npm install` finishes successfully, your project dependencies are installed and you're ready to run the project using the instructions provided by your project (for example, `npm start`, `npm run dev`, or another npm script).
+Once `npm install` completes successfully, you can continue with the project using the instructions provided by your lecturer or project documentation.
