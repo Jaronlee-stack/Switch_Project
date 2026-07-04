@@ -1,0 +1,515 @@
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main {
+    flex: 1;
+    padding: 35px;
+    background: #f5f7fb;
+    overflow-y: auto;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    display: flex;
+}
+
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.logo-icon {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #00899B, #40B2AC);
+    border-radius: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 28px;
+}
+
+.logo-text h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo-text p {
+    font-size: 11px;
+    color: #9ca3af;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+/* ===========================
+   NAVIGATION
+=========================== */
+
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 16px 18px;
+
+    border-radius: 16px;
+
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+    color: #d1d5db;
+
+    transition: all .3s ease;
+}
+
+nav li i {
+    font-size: 22px;
+}
+
+nav li:hover {
+    background: #1f2937;
+    color: white;
+    transform: translateX(6px);
+}
+
+nav li.active {
+    background: #00899B;
+    color: white;
+    font-weight: 600;
+}
+
+nav li.active:hover {
+    transform: translateX(0);
+}
+
+
+
+
+
+
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 20px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        width: 90px;
+        padding: 25px 12px;
+    }
+
+    .logo-text,
+    nav li span,
+    .profile div {
+        display: none;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    nav li {
+        justify-content: center;
+        padding: 18px;
+    }
+
+    .profile {
+        justify-content: center;
+    }
+}
+
+.small-card,
+.large-card,
+.progress-card,
+.insight-card{
+
+    transition:.3s ease;
+
+}
+
+.small-card:hover,
+.large-card:hover,
+.progress-card:hover,
+.insight-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+
+}
+
+.insight-card p{
+
+    transition:.4s ease;
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #6b7280;
+    font-size: 15px;
+}
+
+.connection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.05);
+    font-weight: 600;
+}
+
+.connection small {
+    color: gray;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #4ade80;
+    border-radius: 50%;
+}
+
+/* =========================
+   TOP GRID
+========================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   PROGRESS CARD
+========================= */
+
+.progress-card {
+    background: white;
+    border-radius: 28px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+.progress-circle {
+    position: relative;
+    width: 230px;
+    height: 230px;
+    margin: auto;
+}
+
+.progress-circle svg {
+    transform: rotate(-90deg);
+}
+
+.bg-circle {
+    fill: none;
+    stroke: #e5e7eb;
+    stroke-width: 14;
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke: #22c55e;
+    stroke-width: 14;
+    stroke-linecap: round;
+
+    stroke-dasharray: 565;
+    stroke-dashoffset: 565;
+
+    transition: stroke-dashoffset .8s ease;
+}
+
+.progress-text {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.score {
+    font-size: 3rem;
+    color: #111827;
+}
+
+.progress-text p {
+    color: #6b7280;
+}
+
+.status-pill {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: #dcfce7;
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.progress-card small {
+    display: block;
+    margin-top: 15px;
+    color: gray;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+.small-card {
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    transition: .3s;
+}
+
+.small-card:hover {
+    transform: translateY(-6px);
+}
+
+.small-card h4 {
+    color: gray;
+    font-size: 13px;
+    margin: 18px 0 10px;
+}
+
+.small-card h2 {
+    font-size: 1.7rem;
+    margin-bottom: 6px;
+}
+
+.small-card p {
+    color: gray;
+    font-size: 14px;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 24px;
+}
+
+.green {
+    background: #22c55e;
+}
+
+.blue {
+    background: #3b82f6;
+}
+
+.orange {
+    background: #f59e0b;
+}
+
+/* =========================
+   AI INSIGHT
+========================= */
+
+.insight-card {
+    display: flex;
+    gap: 25px;
+    background: white;
+    border-radius: 28px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+.brain {
+    width: 70px;
+    height: 70px;
+    background: #DBFEFF;
+    color: #246B6E;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+}
+
+.insight-card h2 {
+    margin-bottom: 15px;
+}
+
+.insight-card p {
+    color: #4b5563;
+    line-height: 1.7;
+}
+
+.insight-footer {
+    margin-top: 20px;
+
+    display: flex;
+    gap: 15px;
+
+    color: gray;
+    font-size: 14px;
+}
+
+/* =========================
+   BOTTOM GRID
+========================= */
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+.large-card {
+    background: white;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+.large-card h2 {
+    margin-bottom: 20px;
+}
+
+.placeholder-chart {
+    height: 260px;
+    border-radius: 18px;
+    background: #f3f4f6;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: gray;
+}
+
+.streak {
+    height: 260px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.streak h1 {
+    font-size: 4rem;
+    color: #246B6E;
+}
+
+.streak p {
+    color: gray;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+.dashboard-grid{
+    grid-template-columns:1fr;
+}
+
+.bottom-grid{
+    grid-template-columns:1fr;
+}
+
+.stats{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:700px){
+
+.header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.stats{
+    grid-template-columns:1fr;
+}
+
+.progress-circle{
+    width:190px;
+    height:190px;
+}
+
+.progress-circle svg{
+    width:190px;
+    height:190px;
+}
+
+.score{
+    font-size:2.4rem;
+}
+
+}
