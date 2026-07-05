@@ -69,17 +69,11 @@ nav li {
     display: flex;
     align-items: center;
     gap: 15px;
-
     padding: 16px 18px;
-
     border-radius: 16px;
-
     margin-bottom: 10px;
-
     cursor: pointer;
-
     color: #d1d5db;
-
     transition: all .3s ease;
 }
 
@@ -87,15 +81,20 @@ nav li i {
     font-size: 22px;
 }
 
+nav li a {
+    color:white;
+    text-decoration: none;
+}
+
 nav li:hover {
-    background: #1f2937;
-    color: white;
     transform: translateX(6px);
+    background: rgba(36, 107, 110, 0.3);
+    color: #00FAFF;
 }
 
 nav li.active {
-    background: rgba(36, 107, 110, 0.3);
-    color: #00FAFF;
+    background:#1f2937;
+    color: white;
     font-weight: 600;
 }
 
