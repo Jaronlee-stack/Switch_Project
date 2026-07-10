@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Coach</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="LiveCoach.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="styles.css">
+
+
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+<div id="sidebar"></div>
+
+<div class="main-content">
+
+    <!-- Heading -->
+    <div class="page-title">
+        <h1>Live Coach</h1>
+        <p>Real-time posture monitoring & feedback</p>
+    </div>
+
+    <div class="dashboard">
+
+        <!-- Camera Section -->
+        <div class="camera-section">
+
+            <!-- Camera Header -->
+            <div class="camera-header">
+
+                <div class="camera-title">
+                    <span class="live-dot"></span>
+                    <h2>Live Feed — Raspberry Pi Camera</h2>
+                </div>
+
+                <div class="camera-icons">
+                    <i class="ri-volume-up-line"></i>
+                    <i class="ri-fullscreen-line"></i>
+                </div>
+
+            </div>
+
+            <!-- Webcam Placeholder -->
+            <div class="camera-feed">
+
+                <!-- Grid Background -->
+                <div class="camera-placeholder">
+
+                    <div class="mediapipe-tag">
+                        <i class="ri-camera-line"></i>
+                        MediaPipe Active
+                    </div>
+
+                    <!-- Webcam goes here later -->
+                    <div id="video-container">
+                        <p>Webcam Feed Placeholder</p>
+                    </div>
+
+                    <div class="bottom-tags">
+
+                        <div class="fps-tag">
+                            Frame Rate:
+                            <span>30 FPS</span>
+                        </div>
+
+                        <div class="processing-tag">
+                            Processing:
+                            <span>OpenCV + MediaPipe</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+
+            <!-- Posture Status -->
+            <div class="status-card">
+
+                <h2>Posture Status</h2>
+
+                <div class="status-badge warning">
+                    ● Warning
+                </div>
+
+                <div class="status-item">
+                    <span>Neck Angle</span>
+                    <strong class="green">18°</strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Shoulder Alignment</span>
+                    <strong class="green">Good</strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Back Curvature</span>
+                    <strong class="orange">Slight</strong>
+                </div>
+
+                <div class="status-item">
+                    <span>Hip Balance</span>
+                    <strong class="green">Balanced</strong>
+                </div>
+
+            </div>
+
+            <!-- Alerts -->
+            <div class="alert-card">
+
+                <h2>Real-time Alerts</h2>
+
+                <div class="alert warning-alert">
+
+                    <div class="alert-icon">
+                        <i class="ri-error-warning-line"></i>
+                    </div>
+
+                    <div class="alert-text">
+                        <p>Slight forward head tilt detected</p>
+                        <small>Just now</small>
+                    </div>
+
+                </div>
+
+                <div class="alert success-alert">
+
+                    <div class="alert-icon">
+                        <i class="ri-checkbox-circle-line"></i>
+                    </div>
+
+                    <div class="alert-text">
+                        <p>Shoulders aligned properly</p>
+                        <small>30s ago</small>
+                    </div>
+
+                </div>
+
+                <div class="alert success-alert">
+
+                    <div class="alert-icon">
+                        <i class="ri-checkbox-circle-line"></i>
+                    </div>
+
+                    <div class="alert-text">
+                        <p>Balanced posture maintained</p>
+                        <small>1 min ago</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+
+<script src="LiveCoach.js"></script>
+<script src="sidebar.js"></script>
+
+</body>
+</html>

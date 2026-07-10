@@ -27,7 +27,14 @@ body {
   width: 100%;
 }
 
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
 
+.sidebar::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 20px;
+}
 
 .settings-page {
   flex: 1;
