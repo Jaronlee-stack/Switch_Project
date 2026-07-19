@@ -18,6 +18,7 @@ export interface SOPRule {
   max_angle: number;
   result: string;
   recommendation: string;
+  robot_action?: string;
 }
 
 export interface AgentConfig {
