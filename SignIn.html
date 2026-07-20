@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Coach Sign In </title>
+    
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="SignIn.css">
+    <link rel="stylesheet" href="styles.css">
+
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="card-container">
+        <!-- Left Side: Decorative Mesh Gradient Panel -->
+        <div class="left-panel">
+            <div class="asterisk-logo"><i class="fa-solid fa-asterisk"></i></div>
+            <div class="panel-footer">
+                <h1 class="headline">Small Habits. Big Results.</h1>
+            </div>
+        </div>
+
+        <!-- Right Side: Interactive Form Panel -->
+        <div class="right-panel">
+            <div class="form-wrapper">
+                <div class="form-logo"><i class="fa-solid fa-asterisk"></i></div>
+                
+                <h2 id="form-title">Create an account</h2>
+                <p id="form-desc" class="description">Access your tasks, notes, and projects anytime, anywhere - and keep everything flowing in one place.</p>
+                
+                <form id="auth-form">
+                    <div class="input-group">
+                        <label for="email">Your email</label>
+                        <input type="email" id="email" placeholder="johndoe@gmail.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" placeholder="••••••••••••" required>
+                            <button type="button" id="toggle-password" class="toggle-password">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">Get Started</button>
+                </form>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn"><i class="fa-brands fa-behance"></i></button>
+                    <button class="social-btn"><i class="fa-brands fa-google"></i></button>
+                    <button class="social-btn"><i class="fa-brands fa-facebook-f"></i></button>
+                </div>
+
+                <p class="toggle-form-text">
+                    <span id="switch-prompt">Don't have an account?</span> 
+                    <a href="#" id="switch-auth-link">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="SignIn.js"></script>
+   
+
+   
+
+</div>
+
+</body>
+</html>

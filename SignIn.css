@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f3f2fc;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Container Layout */
+.card-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 960px;
+    height: 640px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(111, 105, 237, 0.12);
+    display: flex;
+    overflow: hidden;
+    padding: 18px;
+}
+
+/* Left Panel Style (Mesh Gradient recreation) */
+.left-panel {
+    flex: 1.1;
+    border-radius: 20px;
+    background: radial-gradient(at top left, #E0F8F7 0%, transparent 60%),
+                radial-gradient(at top right, #54B5B8 10%, transparent 60%),
+                radial-gradient(at bottom left, #246B6E 0%, #0B6477 40%, transparent 80%),
+                radial-gradient(at bottom right, #8FEFEF 0%, transparent 70%),
+                #246B6E;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff;
+}
+
+.asterisk-logo {
+    font-size: 32px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.panel-footer {
+    max-width: 320px;
+}
+
+.panel-footer .subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.panel-footer .headline {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+
+/* Right Panel Style (Form area) */
+.right-panel {
+    flex: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 380px;
+}
+
+.form-logo {
+    color: #246B6E;
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    color: #000000;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.description {
+    color: #8c8c8c;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+/* Input Fields styling */
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    color: #333;
+    transition: border-color 0.2s;
+}
+
+.input-group input::placeholder {
+    color: #b3b3b3;
+}
+
+.input-group input:focus {
+    border-color: #246B6E;
+}
+
+/* Password wrapper for eye toggle icon */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Action button style matching the heavy blur shadow */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #246B6E;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    box-shadow: 0 10px 20px rgba(2, 75, 110, 0.35);
+    transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+}
+
+/* Horizontal line Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: #b3b3b3;
+    font-size: 11px;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.divider:not(:empty)::before { margin-right: .75em; }
+.divider:not(:empty)::after { margin-left: .75em; }
+
+/* Social Login Buttons */
+.social-login {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.social-btn {
+    flex: 1;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4a4a4a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.social-btn:hover {
+    background-color: #d4d4d4;
+}
+
+/* Switch context link */
+.toggle-form-text {
+    text-align: center;
+    font-size: 13px;
+    color: #707070;
+}
+
+.toggle-form-text a {
+    color: #246B6E;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.toggle-form-text a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustment for screens smaller than the card layout */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        height: auto;
+        max-width: 450px;
+    }
+    .left-panel {
+        height: 240px;
+        margin-bottom: 16px;
+    }
+    .right-panel {
+        padding: 20px 10px;
+    }
+}
