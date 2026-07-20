@@ -1,0 +1,10 @@
+{
+  "frame_id": 1,
+  "timestamp": "2026-06-25T10:00:00",
+  "posture": "bad",
+  "issues": ["slouching", "head_forward"],
+  "neck_angle": 141,
+  "back_angle": 165,
+  "trunk_lean": 12,
+  "user_id": 1
+}
