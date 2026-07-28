@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const PostureAgent_js_1 = require("./agent/PostureAgent.js");
+const PostureAgent_js_1 = require("../../dist/agent/PostureAgent.js");
 const ollamaClient_js_1 = require("./llm/ollamaClient.js");
-const client_js_1 = require("./db/client.js");
+const client_js_1 = require("../src/db/client.js");
 function loadConfig() {
     return {
         agent: {

@@ -1,4 +1,4 @@
-import { OllamaClient } from '../llm/ollamaClient.js';
+import { OllamaClient } from '../../archives/src/llm/ollamaClient.js';
 import { DatabaseClient } from '../db/client.js';
 import {
   AveragedPosture,

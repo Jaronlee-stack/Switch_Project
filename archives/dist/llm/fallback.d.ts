@@ -1,4 +1,4 @@
-import { FallbackAdvice } from '../types/index.js';
+import { FallbackAdvice } from '../../../src/types/index.js';
 export declare const FALLBACK_ADVICE: FallbackAdvice;
 export declare function getFallbackAdvice(): FallbackAdvice;
 //# sourceMappingURL=fallback.d.ts.map

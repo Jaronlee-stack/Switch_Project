@@ -1,4 +1,4 @@
-import { AgentConfig, OllamaMessage, FallbackAdvice } from '../types/index.js';
+import { AgentConfig, OllamaMessage, FallbackAdvice } from '../../src/types/index.js';
 export declare class OllamaClient {
     private config;
     private baseUrl;

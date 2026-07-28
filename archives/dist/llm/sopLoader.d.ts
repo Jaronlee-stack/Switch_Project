@@ -1,4 +1,4 @@
-import { SOPRule } from '../types/index.js';
+import { SOPRule } from '../../../src/types/index.js';
 import { DatabaseClient } from '../db/client.js';
 export declare class SOPLoader {
     private cache;
