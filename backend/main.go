@@ -24,7 +24,7 @@ func main() {
 	log.Println("Starting Posture Correction Backend...")
 	log.Printf("Config: model=%s ollama=%s db=%s", cfg.Agent.Model, cfg.Agent.BaseURL, cfg.Database.Host)
 
-	dbClient, err := db.NewClient(cfg.Database)
+	dbClient, err := db.New(cfg.Database)
 	if err != nil {
 		log.Fatalf("Database connection failed: %v", err)
 	}
