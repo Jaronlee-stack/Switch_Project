@@ -164,7 +164,7 @@ func (c *Client) GetLatestAdvice(ctx context.Context) (models.PostureAdvice, err
 
 	var advice models.PostureAdvice
 
-	err := c.DB.QueryRowContext(ctx, `
+	err := c.db.QueryRowContext(ctx, `
 		SELECT
 			advice,
 			COALESCE(confidence_score,0)
