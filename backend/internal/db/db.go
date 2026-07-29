@@ -138,3 +138,43 @@ func (c *Client) UpdateLatestAdvice(ctx context.Context, advice string, confiden
 
 	return err
 }
+func (c *Client) InsertDetection(ctx context.Context, userID string, frame models.PostureFrame) error {
+	_, err := c.DB.ExecContext(ctx, `
+		INSERT INTO posture_detections
+		(user_id,
+		neck_angle,
+		back_angle,
+		head_forward_distance,
+		posture_result,
+		detected_at)
+		VALUES ($1,$2,$3,$4,$5,$6)
+	`,
+		userID,
+		frame.NeckAngle,
+		frame.BackAngle,
+		frame.HeadForwardDistance,
+		frame.PostureResult,
+		frame.DetectedAt,
+	)
+
+	return err
+}
+
+func (c *Client) GetLatestAdvice(ctx context.Context) (models.PostureAdvice, error) {
+
+	var advice models.PostureAdvice
+
+	err := c.DB.QueryRowContext(ctx, `
+		SELECT
+			advice,
+			COALESCE(confidence_score,0)
+		FROM posture_detections
+		ORDER BY detected_at DESC
+		LIMIT 1
+	`).Scan(
+		&advice.Advice,
+		&advice.ConfidenceScore,
+	)
+
+	return advice, err
+}
