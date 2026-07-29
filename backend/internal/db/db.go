@@ -139,7 +139,7 @@ func (c *Client) UpdateLatestAdvice(ctx context.Context, advice string, confiden
 	return err
 }
 func (c *Client) InsertDetection(ctx context.Context, userID string, frame models.PostureFrame) error {
-	_, err := c.DB.ExecContext(ctx, `
+	_, err := c.db.ExecContext(ctx, `
 		INSERT INTO posture_detections
 		(user_id,
 		neck_angle,

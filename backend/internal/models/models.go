@@ -23,11 +23,12 @@ type AveragedPosture struct {
 }
 
 type SOPRule struct {
-	RuleName       string
-	MinAngle       float64
-	MaxAngle       float64
-	Result         string
-	Recommendation string
+    RuleName       string
+    MinAngle       float64
+    MaxAngle       float64
+    Result         string
+    Recommendation string
+    RobotAction    string
 }
 
 type PostureAdvice struct {
