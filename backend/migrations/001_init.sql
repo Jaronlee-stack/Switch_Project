@@ -2,9 +2,10 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 BEGIN;
 
--- =========================
--- USERS
--- =========================
+-- ===========================
+-- Users
+-- ===========================
+
 CREATE TABLE IF NOT EXISTS users (
     user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username VARCHAR(50) NOT NULL,
@@ -12,9 +13,10 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- =========================
--- SOP RULES
--- =========================
+-- ===========================
+-- SOP Rules
+-- ===========================
+
 CREATE TABLE IF NOT EXISTS rules_table (
     rule_id SERIAL PRIMARY KEY,
     rule_name VARCHAR(50) NOT NULL,
@@ -25,11 +27,11 @@ CREATE TABLE IF NOT EXISTS rules_table (
     robot_action VARCHAR(100)
 );
 
--- =========================
--- POSTURE DETECTIONS
--- =========================
-CREATE TABLE IF NOT EXISTS posture_detections (
+-- ===========================
+-- Posture Detections
+-- ===========================
 
+CREATE TABLE IF NOT EXISTS posture_detections (
     detection_id SERIAL PRIMARY KEY,
 
     user_id UUID NOT NULL
@@ -52,14 +54,14 @@ CREATE TABLE IF NOT EXISTS posture_detections (
 
     advice TEXT,
 
-    image_path TEXT
+    image_path VARCHAR(255)
 );
 
--- =========================
--- DAILY SUMMARY
--- =========================
-CREATE TABLE IF NOT EXISTS daily_summaries (
+-- ===========================
+-- Daily Summary
+-- ===========================
 
+CREATE TABLE IF NOT EXISTS daily_summaries (
     summary_id SERIAL PRIMARY KEY,
 
     user_id UUID NOT NULL
@@ -85,18 +87,20 @@ CREATE TABLE IF NOT EXISTS daily_summaries (
     UNIQUE(user_id, summary_date)
 );
 
--- =========================
--- INDEXES
--- =========================
-CREATE INDEX IF NOT EXISTS idx_detection_time
+-- ===========================
+-- Indexes
+-- ===========================
+
+CREATE INDEX IF NOT EXISTS idx_posture_detected
 ON posture_detections(detected_at DESC);
 
-CREATE INDEX IF NOT EXISTS idx_detection_user
+CREATE INDEX IF NOT EXISTS idx_posture_user
 ON posture_detections(user_id);
 
--- =========================
--- DEFAULT USER
--- =========================
+-- ===========================
+-- Seed User
+-- ===========================
+
 INSERT INTO users (
     user_id,
     username,
@@ -109,45 +113,43 @@ VALUES (
 )
 ON CONFLICT (user_id) DO NOTHING;
 
--- =========================
--- DEFAULT RULES
--- =========================
-INSERT INTO rules_table
-(rule_name,min_angle,max_angle,result,recommendation,robot_action)
+-- ===========================
+-- Seed SOP Rules
+-- ===========================
+
+INSERT INTO rules_table (
+    rule_name,
+    min_angle,
+    max_angle,
+    result,
+    recommendation,
+    robot_action
+)
 VALUES
 (
-'Good Sitting',
-80,
-100,
-'Good',
-'Maintain current posture.',
-'LED Green'
+    'Good Sitting',
+    80,
+    100,
+    'Good',
+    'Maintain your current posture.',
+    'LED Green'
 ),
 (
-'Warning',
-60,
-79,
-'Warning',
-'Sit up straighter and adjust chair.',
-'LED Yellow'
+    'Warning',
+    60,
+    79,
+    'Warning',
+    'Sit up straighter and relax your shoulders.',
+    'LED Yellow'
 ),
 (
-'Bad',
-0,
-59,
-'Bad',
-'Stand up, stretch and reset posture.',
-'LED Red'
-);
-UPDATE posture_detections
-SET
-    advice = $1,
-    confidence_score = $2
-WHERE detection_id = (
-    SELECT detection_id
-    FROM posture_detections
-    ORDER BY detected_at DESC
-    LIMIT 1
-);
+    'Bad',
+    0,
+    59,
+    'Bad',
+    'Stand up, stretch, then reset your sitting posture.',
+    'LED Red'
+)
+ON CONFLICT DO NOTHING;
 
 COMMIT;
