@@ -139,5 +139,15 @@ VALUES
 'Stand up, stretch and reset posture.',
 'LED Red'
 );
+UPDATE posture_detections
+SET
+    advice = $1,
+    confidence_score = $2
+WHERE detection_id = (
+    SELECT detection_id
+    FROM posture_detections
+    ORDER BY detected_at DESC
+    LIMIT 1
+);
 
 COMMIT;
