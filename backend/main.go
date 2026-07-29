@@ -35,7 +35,7 @@ func main() {
 		cfg.Database.Port,
 		cfg.Database.User,
 		cfg.Database.Password,
-		cfg.Database.Name,
+		cfg.Database.Database,   // ✅
 	)
 	if err != nil {
 		log.Fatalf("Database connection failed: %v", err)
