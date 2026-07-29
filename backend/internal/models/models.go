@@ -1,10 +1,6 @@
-package llm
+package models
 
-import "posture-backend/internal/models"
-
-func GetFallbackAdvice() models.PostureAdvice {
-	return models.PostureAdvice{
-		Advice:          "Sit up straight, pull your shoulders back, and adjust your monitor to eye level. Take a 30-second stretch break.",
-		ConfidenceScore: 60,
-	}
+type PostureAdvice struct {
+    Advice          string `json:"advice"`
+    ConfidenceScore int    `json:"confidence_score"`
 }
