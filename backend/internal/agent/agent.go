@@ -164,20 +164,33 @@ Generate a 3-step corrective action plan.`,
 }
 
 func formatPosture(p models.AveragedPosture) string {
-	return fmt.Sprintf("Neck Angle: %.2f°
-Back Angle: %.2f°
-Head Forward Distance: %.2fcm", p.NeckAngle, p.BackAngle, p.HeadForwardDistance)
+	return fmt.Sprintf(
+		"Neck Angle: %.2f°\nBack Angle: %.2f°\nHead Forward Distance: %.2fcm",
+		p.NeckAngle,
+		p.BackAngle,
+		p.HeadForwardDistance,
+	)
 }
 
 func formatSOPRules(rules []models.SOPRule) string {
 	if len(rules) == 0 {
 		return "No SOP rules available."
 	}
+
 	var b strings.Builder
+
 	for _, r := range rules {
-		fmt.Fprintf(&b, "%s: %.0f°-%.0f° → %s (%s)
-", r.RuleName, r.MinAngle, r.MaxAngle, r.Result, r.Recommendation)
+		fmt.Fprintf(
+			&b,
+			"%s: %.0f°-%.0f° -> %s (%s)\n",
+			r.RuleName,
+			r.MinAngle,
+			r.MaxAngle,
+			r.Result,
+			r.Recommendation,
+		)
 	}
+
 	return b.String()
 }
 
