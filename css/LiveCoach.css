@@ -2,16 +2,16 @@
    GENERAL
 ========================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: "Poppins", sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 
-body{
-    background:#F4F7FB;
-    color:#1D2433;
+body {
+    background: #f5f7fb;
+    color: #1f2937;
 }
 
 .container {
@@ -20,385 +20,398 @@ body{
     width: 100%;
 }
 
-.main-content{
-    padding:40px;
+.main-content {
+    flex: 1;
+    padding: 35px;
+    background: #f5f7fb;
+    overflow-y: auto;
 }
+
 
 /* =========================
    PAGE TITLE
 ========================= */
 
-.page-title h1{
-    font-size: clamp(1.5rem, 2vw, 2rem);
-  font-weight: 800;
-    margin-bottom:10px;
+.page-title {
+    margin-bottom: 30px;
 }
 
-.page-title p{
-    font-size:24px;
-    color:#64748B;
-    margin-bottom:35px;
+.page-title h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
 }
+
+.page-title p {
+    font-size: 15px;
+    color: #6b7280;
+}
+
 
 /* =========================
    LAYOUT
 ========================= */
 
-.dashboard{
-    display:grid;
+.dashboard {
+    display: grid;
     grid-template-columns: 2.3fr 1fr;
-    gap:35px;
-    align-items:flex-start;
+    gap: 30px;
+    align-items: flex-start;
 }
+
 
 /* =========================
    CAMERA SECTION
 ========================= */
 
-.camera-section{
-    background:white;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 8px 30px rgba(0,0,0,.05);
+.camera-section {
+    background: white;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
 }
 
-.camera-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:25px 30px;
-    border-bottom:1px solid #ECECEC;
+.camera-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.camera-title{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.camera-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.camera-title h2{
-    font-size:30px;
-    font-weight:600;
+.camera-title h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
 }
 
-.live-dot{
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background:#F16B5C;
+.live-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #22c55e;
 }
 
-.camera-icons{
-    display:flex;
-    gap:25px;
+.camera-icons {
+    display: flex;
+    gap: 20px;
 }
 
-.camera-icons i{
-    font-size:28px;
-    cursor:pointer;
-    transition:.3s;
+.camera-icons i {
+    font-size: 22px;
+    color: #6b7280;
+    cursor: pointer;
+    transition: .3s;
 }
 
-.camera-icons i:hover{
-    color:#49B4F2;
+.camera-icons i:hover {
+    color: #246b6e;
 }
+
 
 /* =========================
    CAMERA FEED
 ========================= */
 
-.camera-feed{
-    padding:0;
+.camera-feed {
+    padding: 0;
 }
 
-.camera-placeholder{
-    position:relative;
-    height:650px;
+.camera-placeholder {
+    position: relative;
+    height: 600px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    background:#192233;
+    background: #192233;
 
     background-image:
-        linear-gradient(rgba(83,104,136,.35) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(83,104,136,.35) 1px, transparent 1px);
+        linear-gradient(rgba(83, 104, 136, .35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(83, 104, 136, .35) 1px, transparent 1px);
 
-    background-size:60px 60px;
+    background-size: 60px 60px;
 }
 
-/* Webcam Placeholder */
 
-#video-container{
-    width:82%;
-    height:75%;
-    border:3px dashed rgba(255,255,255,.25);
-    border-radius:20px;
+/* =========================
+   WEBCAM PLACEHOLDER
+========================= */
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+#video-container {
+    width: 82%;
+    height: 75%;
 
-    color:white;
-    font-size:22px;
+    border: 3px dashed rgba(255, 255, 255, .25);
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 16px;
 }
+
 
 /* =========================
    BADGES
 ========================= */
 
-.mediapipe-tag{
-    position:absolute;
-    top:25px;
-    left:25px;
+.mediapipe-tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 
-    background:#0F172A;
+    background: #111827;
+    color: white;
 
-    color:white;
+    padding: 10px 16px;
+    border-radius: 16px;
 
-    padding:14px 22px;
+    font-size: 13px;
+    font-weight: 600;
 
-    border-radius:16px;
-
-    font-weight:600;
-
-    display:flex;
-    gap:10px;
-    align-items:center;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
-.bottom-tags{
+.bottom-tags {
+    position: absolute;
 
-    position:absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
 
-    bottom:25px;
-    left:25px;
-    right:25px;
-
-    display:flex;
-    justify-content:space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .fps-tag,
-.processing-tag{
+.processing-tag {
+    background: #111827;
+    color: white;
 
-    background:#0F172A;
+    padding: 10px 16px;
+    border-radius: 16px;
 
-    color:white;
-
-    padding:16px 22px;
-
-    border-radius:18px;
-
-    font-size:17px;
+    font-size: 13px;
 }
 
-.fps-tag span{
-
-    color:#57C7FF;
-    font-weight:600;
+.fps-tag span {
+    color: #54b5b8;
+    font-weight: 600;
 }
 
-.processing-tag span{
-
-    color:#50D890;
-    font-weight:600;
+.processing-tag span {
+    color: #22c55e;
+    font-weight: 600;
 }
+
 
 /* =========================
    RIGHT PANEL
 ========================= */
 
-.right-panel{
-
-    display:flex;
-    flex-direction:column;
-    gap:30px;
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
+
 
 /* =========================
    STATUS CARD
 ========================= */
 
-.status-card{
+.status-card {
+    background: white;
+    border-radius: 28px;
+    padding: 25px;
 
-    background:white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
 
-    border-radius:25px;
-
-    padding:30px;
-
-    box-shadow:0 8px 30px rgba(0,0,0,.05);
+    transition: .3s ease;
 }
 
-.status-card h2{
-
-    font-size:34px;
-
-    margin-bottom:25px;
+.status-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
 }
 
-.status-badge{
-
-    display:inline-block;
-
-    padding:12px 22px;
-
-    border-radius:30px;
-
-    margin-bottom:30px;
-
-    font-weight:600;
+.status-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
-.warning{
+.status-badge {
+    display: inline-block;
 
-    background:#FFF6DE;
+    padding: 10px 18px;
+    border-radius: 50px;
 
-    color:#C58A1D;
+    margin-bottom: 20px;
+
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.status-item{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    background:#F8FAFC;
-
-    padding:22px;
-
-    margin-bottom:18px;
-
-    border-radius:18px;
-
-    font-size:22px;
+.warning {
+    background: #fff6de;
+    color: #c58a1d;
 }
 
-.green{
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    color:#33A06F;
+    background: #f8fafc;
+
+    padding: 16px;
+    margin-bottom: 12px;
+
+    border-radius: 16px;
+
+    font-size: 14px;
 }
 
-.orange{
-
-    color:#DA8A24;
+.green {
+    color: #33a06f;
 }
+
+.orange {
+    color: #da8a24;
+}
+
 
 /* =========================
    ALERT CARD
 ========================= */
 
-.alert-card{
+.alert-card {
+    background: white;
+    border-radius: 28px;
+    padding: 25px;
 
-    background:white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .05);
 
-    border-radius:25px;
-
-    padding:30px;
-
-    box-shadow:0 8px 30px rgba(0,0,0,.05);
+    transition: .3s ease;
 }
 
-.alert-card h2{
-
-    font-size:34px;
-
-    margin-bottom:25px;
+.alert-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
 }
 
-.alert{
-
-    display:flex;
-
-    gap:18px;
-
-    align-items:flex-start;
-
-    padding:22px;
-
-    border-radius:18px;
-
-    margin-bottom:18px;
+.alert-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
-.warning-alert{
+.alert {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
 
-    background:#FFF8E7;
+    padding: 16px;
+    border-radius: 16px;
+
+    margin-bottom: 12px;
 }
 
-.success-alert{
-
-    background:#EAF8F1;
+.warning-alert {
+    background: #fff8e7;
 }
 
-.alert-icon i{
-
-    font-size:32px;
+.success-alert {
+    background: #eaf8f1;
 }
 
-.warning-alert i{
-
-    color:#D58A18;
+.alert-icon i {
+    font-size: 24px;
 }
 
-.success-alert i{
-
-    color:#37A36A;
+.warning-alert i {
+    color: #d58a18;
 }
 
-.alert-text p{
-
-    font-size:20px;
-
-    margin-bottom:5px;
+.success-alert i {
+    color: #37a36a;
 }
 
-.alert-text small{
-
-    color:#8B98A9;
-
-    font-size:15px;
+.alert-text p {
+    font-size: 14px;
+    color: #1f2937;
+    margin-bottom: 5px;
 }
+
+.alert-text small {
+    color: #8b98a9;
+    font-size: 12px;
+}
+
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:1200px){
+@media (max-width: 1200px) {
 
-.dashboard{
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
 
-grid-template-columns:1fr;
-
+    .camera-placeholder {
+        height: 500px;
+    }
 }
 
-.camera-placeholder{
 
-height:500px;
+@media (max-width: 700px) {
 
-}
+    .main-content {
+        padding: 20px;
+    }
 
-.page-title h1{
+    .page-title h1 {
+        font-size: 1.7rem;
+    }
 
-font-size:38px;
+    .camera-header {
+        padding: 20px;
+    }
 
-}
+    .camera-title h2 {
+        font-size: 1.25rem;
+    }
 
-.camera-title h2{
+    .camera-placeholder {
+        height: 400px;
+    }
 
-font-size:22px;
+    .camera-icons {
+        gap: 12px;
+    }
 
-}
+    .camera-icons i {
+        font-size: 20px;
+    }
 
-.status-card h2,
-.alert-card h2{
-
-font-size:28px;
-
-}
-
+    .bottom-tags {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
 }
