@@ -66,3 +66,10 @@ type ReflectorOutput struct {
 	Reasoning         string   `json:"reasoning"`
 	ConfidenceScore   int      `json:"confidence_score"`
 }
+
+type User struct {
+	UserID       string
+	Username     string
+	PasswordHash string
+	Role         string
+}
