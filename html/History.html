@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Habit Coach History</title>
+
+    <link rel="stylesheet" href="../css/History.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<!-- SIDEBAR -->
+<div id="sidebar"></div>
+<body>
+
+    <div class="container">
+
+        
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <!-- HEADER -->
+            <div class="header">
+
+                <div>
+                    <h1>History</h1>
+                    <p>Review your past posture sessions</p>
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH / FILTER BAR -->
+            <section class="history-toolbar">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search by date or issue..."
+                    >
+
+                </div>
+
+
+                <div class="toolbar-buttons">
+
+                    <button class="toolbar-btn" id="dateRangeBtn">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span>Date Range</span>
+                    </button>
+
+                    <button class="toolbar-btn" id="filterBtn">
+                        <i class="fa-solid fa-filter"></i>
+                        <span>Filter</span>
+                    </button>
+
+                    <button class="toolbar-btn" id="exportBtn">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Export</span>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- DATE RANGE PANEL -->
+            <section class="filter-panel" id="datePanel">
+
+                <div class="date-input">
+
+                    <label for="startDate">From</label>
+
+                    <input
+                        type="date"
+                        id="startDate"
+                    >
+
+                </div>
+
+
+                <div class="date-input">
+
+                    <label for="endDate">To</label>
+
+                    <input
+                        type="date"
+                        id="endDate"
+                    >
+
+                </div>
+
+
+                <button class="apply-btn" id="applyDateBtn">
+                    Apply
+                </button>
+
+            </section>
+
+
+            <!-- FILTER PANEL -->
+            <section class="filter-panel" id="filterPanel">
+
+                <div>
+
+                    <label for="issueFilter">Main Issue</label>
+
+                    <select id="issueFilter">
+
+                        <option value="all">All Issues</option>
+                        <option value="None">None</option>
+                        <option value="Neck Tilt">Neck Tilt</option>
+                        <option value="Slouching">Slouching</option>
+                        <option value="Forward Head">Forward Head</option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="statusFilter">Status</label>
+
+                    <select id="statusFilter">
+
+                        <option value="all">All Status</option>
+                        <option value="Good Posture">Good Posture</option>
+                        <option value="Warning">Warning</option>
+                        <option value="Bad Posture">Bad Posture</option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="apply-btn" id="applyFilterBtn">
+                    Apply
+                </button>
+
+            </section>
+
+
+            <!-- HISTORY TABLE -->
+            <section class="history-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>DATE</th>
+                                <th>SCORE</th>
+                                <th>MAIN ISSUE</th>
+                                <th>DURATION</th>
+                                <th>STATUS</th>
+                                <th>REPORT</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="historyTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+                <div class="empty-state" id="emptyState">
+
+                    <i class="fa-regular fa-folder-open"></i>
+
+                    <h3>No sessions found</h3>
+
+                    <p>
+                        Try changing your search or filter settings.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- REPORT MODAL -->
+    <div class="modal-overlay" id="reportModal">
+
+        <div class="report-modal">
+
+            <button class="close-modal" id="closeModal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <h2 id="modalTitle">Session Report</h2>
+
+            <p class="modal-date" id="modalDate"></p>
+
+
+            <div class="report-grid">
+
+                <div>
+                    <span>Posture Score</span>
+                    <strong id="modalScore"></strong>
+                </div>
+
+                <div>
+                    <span>Main Issue</span>
+                    <strong id="modalIssue"></strong>
+                </div>
+
+                <div>
+                    <span>Duration</span>
+                    <strong id="modalDuration"></strong>
+                </div>
+
+                <div>
+                    <span>Status</span>
+                    <strong id="modalStatus"></strong>
+                </div>
+
+            </div>
+
+
+            <div class="modal-message">
+
+                <i class="fa-solid fa-lightbulb"></i>
+
+                <p id="modalMessage"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="../js/History.js"></script>
+
+</body>
+
+</html>

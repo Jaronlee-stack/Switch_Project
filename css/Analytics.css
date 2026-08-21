@@ -1,0 +1,659 @@
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    display: flex;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #1f2937;
+
+    background: #f5f7fb;
+}
+
+.container {
+    display: flex;
+
+    min-height: 100vh;
+
+    width: 100%;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main {
+    flex: 1;
+
+    padding: 35px;
+
+    background: #f5f7fb;
+
+    overflow-y: auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.header h1 {
+    font-size: 2rem;
+
+    color: #111827;
+
+    margin: 0 0 8px;
+}
+
+.header p {
+    color: #6b7280;
+
+    font-size: 15px;
+
+    margin: 0;
+}
+
+
+/* =========================
+   ANALYTICS STATS
+========================= */
+
+.analytics-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+
+    margin-bottom: 30px;
+}
+
+.analytics-card {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .05);
+
+    transition: .3s ease;
+}
+
+.analytics-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .08);
+}
+
+
+/* =========================
+   CARD TOP
+========================= */
+
+.card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.card-top span {
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: .6px;
+}
+
+.card-top i {
+
+    font-size: 20px;
+}
+
+.green-icon {
+    color: #20b486;
+}
+
+.teal-icon {
+    color: #20b49f;
+}
+
+.orange-icon {
+    color: #f2a514;
+}
+
+.analytics-card h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 2rem;
+
+    color: #111827;
+}
+
+.analytics-card p {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.positive {
+    color: #159570;
+}
+
+.orange-text {
+    color: #d98b08;
+}
+
+
+/* =========================
+   CHART GRID
+========================= */
+
+.chart-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.25fr 1fr;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   LARGE CARD
+========================= */
+
+.large-card {
+
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .05);
+
+    transition: .3s ease;
+}
+
+.large-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .08);
+}
+
+
+/* =========================
+   CHART HEADER
+========================= */
+
+.chart-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+}
+
+.chart-header h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 20px;
+
+    color: #111827;
+}
+
+.chart-header p {
+
+    margin: 0;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+}
+
+.chart-icon {
+
+    color: #9ca3af;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   TREND PILL
+========================= */
+
+.trend-pill {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border-radius: 50px;
+
+    background: #ecfbf5;
+
+    color: #159570;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   CHART
+========================= */
+
+.chart-container {
+
+    position: relative;
+
+    height: 330px;
+
+    width: 100%;
+}
+
+
+/* =========================
+   ISSUES
+========================= */
+
+.issues-card {
+
+    margin-bottom: 30px;
+}
+
+.section-header {
+
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+
+    margin: 0 0 7px;
+
+    color: #111827;
+
+    font-size: 20px;
+}
+
+.section-header p {
+
+    margin: 0;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   ISSUE LIST
+========================= */
+
+.issue-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.issue-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: #f8fafc;
+
+    transition: .3s ease;
+}
+
+.issue-row:hover {
+
+    transform: translateX(5px);
+
+    background: #f2f7f8;
+}
+
+
+/* =========================
+   ISSUE INFO
+========================= */
+
+.issue-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-width: 220px;
+}
+
+.issue-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.issue-icon.neck {
+
+    background: #e0f7f8;
+
+    color: #00899B;
+}
+
+.issue-icon.slouch {
+
+    background: #fff4dc;
+
+    color: #d98b08;
+}
+
+.issue-icon.forward {
+
+    background: #f3e8ff;
+
+    color: #8b5cf6;
+}
+
+.issue-info strong {
+
+    display: block;
+
+    color: #1f2937;
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.issue-info span {
+
+    display: block;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   ISSUE PROGRESS
+========================= */
+
+.issue-progress {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    width: 45%;
+}
+
+.progress-bar {
+
+    flex: 1;
+
+    height: 8px;
+
+    background: #e5e7eb;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+
+    height: 100%;
+
+    background: #22b5c5;
+
+    border-radius: 20px;
+}
+
+.issue-progress > strong {
+
+    width: 35px;
+
+    color: #374151;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   AI INSIGHT
+========================= */
+
+.insight-card {
+
+    display: flex;
+
+    gap: 25px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    padding: 30px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .05);
+
+    transition: .3s ease;
+}
+
+.insight-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .08);
+}
+
+.brain {
+
+    width: 70px;
+
+    height: 70px;
+
+    flex-shrink: 0;
+
+    background: #DBFEFF;
+
+    color: #246B6E;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 34px;
+}
+
+.insight-content h2 {
+
+    margin: 0 0 15px;
+
+    color: #111827;
+}
+
+.insight-content p {
+
+    color: #4b5563;
+
+    line-height: 1.7;
+
+    margin: 0;
+}
+
+.insight-footer {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    gap: 20px;
+
+    color: #9ca3af;
+
+    font-size: 13px;
+}
+
+.insight-footer i {
+
+    margin-right: 5px;
+
+    color: #00899B;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 1200px) {
+
+    .analytics-stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .chart-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media(max-width: 700px) {
+
+    .main {
+
+        padding: 25px 18px;
+    }
+
+    .analytics-stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+
+        height: 270px;
+    }
+
+    .issue-row {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .issue-progress {
+
+        width: 100%;
+    }
+
+    .insight-card {
+
+        flex-direction: column;
+    }
+
+    .insight-footer {
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+}

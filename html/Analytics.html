@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Habit Coach Analytics</title>
+
+    <link rel="stylesheet" href="../css/Analytics.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<div id="sidebar"></div>
+<body>
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+
+            <!-- HEADER -->
+            <div class="header">
+
+                <div>
+
+                    <h1>Analytics</h1>
+
+                    <p>
+                        Track your posture improvement over time
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+            <section class="analytics-stats">
+
+
+                <!-- WEEKLY AVG -->
+                <div class="analytics-card">
+
+                    <div class="card-top">
+
+                        <span>WEEKLY AVG</span>
+
+                        <i class="fa-solid fa-arrow-trend-up green-icon"></i>
+
+                    </div>
+
+                    <h2>84%</h2>
+
+                    <p class="positive">
+                        +14%
+                    </p>
+
+                </div>
+
+
+                <!-- BEST DAY -->
+                <div class="analytics-card">
+
+                    <div class="card-top">
+
+                        <span>BEST DAY</span>
+
+                        <i class="fa-regular fa-award teal-icon"></i>
+
+                    </div>
+
+                    <h2>89%</h2>
+
+                    <p class="positive">
+                        Friday
+                    </p>
+
+                </div>
+
+
+                <!-- CORRECTIONS -->
+                <div class="analytics-card">
+
+                    <div class="card-top">
+
+                        <span>CORRECTIONS</span>
+
+                        <i class="fa-solid fa-triangle-exclamation orange-icon"></i>
+
+                    </div>
+
+                    <h2>23</h2>
+
+                    <p class="orange-text">
+                        This week
+                    </p>
+
+                </div>
+
+
+                <!-- GOAL PROGRESS -->
+                <div class="analytics-card">
+
+                    <div class="card-top">
+
+                        <span>GOAL PROGRESS</span>
+
+                        <i class="fa-solid fa-bullseye teal-icon"></i>
+
+                    </div>
+
+                    <h2>88%</h2>
+
+                    <p class="positive">
+                        Target: 90%
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- CHART GRID -->
+            <section class="chart-grid">
+
+
+                <!-- WEEKLY CHART -->
+                <div class="large-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h2>
+                                Weekly Posture Score
+                            </h2>
+
+                            <p>
+                                Daily average scores
+                            </p>
+
+                        </div>
+
+
+                        <div class="trend-pill">
+
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+
+                            +14%
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas id="weeklyChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MONTHLY CHART -->
+                <div class="large-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h2>
+                                Monthly Trend
+                            </h2>
+
+                            <p>
+                                Weekly averages this month
+                            </p>
+
+                        </div>
+
+                        <i class="fa-solid fa-chart-column chart-icon"></i>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas id="monthlyChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- COMMON ISSUES -->
+            <section class="large-card issues-card">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Common Posture Issues
+                        </h2>
+
+                        <p>
+                            Most frequent issues detected this month
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="issue-list">
+
+
+                    <div class="issue-row">
+
+                        <div class="issue-info">
+
+                            <div class="issue-icon neck">
+                                <i class="fa-solid fa-person"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Neck Tilt
+                                </strong>
+
+                                <span>
+                                    32% of corrections
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="issue-progress">
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress-fill"
+                                    style="width: 72%;">
+                                </div>
+
+                            </div>
+
+                            <strong>72%</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="issue-row">
+
+                        <div class="issue-info">
+
+                            <div class="issue-icon slouch">
+                                <i class="fa-solid fa-person"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Slouching
+                                </strong>
+
+                                <span>
+                                    27% of corrections
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="issue-progress">
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress-fill"
+                                    style="width: 61%;">
+                                </div>
+
+                            </div>
+
+                            <strong>61%</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="issue-row">
+
+                        <div class="issue-info">
+
+                            <div class="issue-icon forward">
+                                <i class="fa-solid fa-person"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Forward Head
+                                </strong>
+
+                                <span>
+                                    19% of corrections
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="issue-progress">
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress-fill"
+                                    style="width: 43%;">
+                                </div>
+
+                            </div>
+
+                            <strong>43%</strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- AI INSIGHT -->
+            <section class="insight-card">
+
+                <div class="brain">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                </div>
+
+
+                <div class="insight-content">
+
+                    <h2>
+                        AI Posture Insight
+                    </h2>
+
+                    <p>
+
+                        Your posture has improved by
+                        <strong>14%</strong> this week.
+
+                        You are maintaining better posture
+                        during the middle of the day, but
+                        your correction frequency increases
+                        after longer sitting sessions.
+
+                    </p>
+
+
+                    <div class="insight-footer">
+
+                        <span>
+                            <i class="fa-regular fa-clock"></i>
+                            Based on your last 7 days
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            AI Generated
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="../js/Analytics.js"></script>
+
+</body>
+
+</html>
