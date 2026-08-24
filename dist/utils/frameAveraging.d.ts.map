@@ -1,1 +1,0 @@
-{"version":3,"file":"frameAveraging.d.ts","sourceRoot":"","sources":["../../src/utils/frameAveraging.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,eAAe,EAAE,MAAM,mBAAmB,CAAC;AAElE,wBAAgB,aAAa,CAAC,MAAM,EAAE,YAAY,EAAE,GAAG,eAAe,CAuBrE;AAED,wBAAgB,sBAAsB,CAAC,OAAO,EAAE,eAAe,GAAG,MAAM,CAIvE"}
