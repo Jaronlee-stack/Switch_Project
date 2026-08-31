@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================
 // CIRCULAR PROGRESS
 // ==========================
-
 function animateProgress(target) {
 
     const circle = document.querySelector(".progress-ring-circle");
