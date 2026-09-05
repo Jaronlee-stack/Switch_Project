@@ -4,7 +4,7 @@ import "time"
 
 type CameraFrameRequest struct {
 	FrameID string `json:"frame_id"`
-	Image   string `json:"image,omitempty"`
+	Image   string `json:"image_b64,omitempty"`
 }
 
 type PostureFrame struct {
