@@ -22,6 +22,8 @@ import {
 } from "./controller/postureController.js";
 import { listRules, addRule, editRule, removeRule } from "./controller/rulesController.js";
 import { getAnalyticsSummary, getAnalyticsTrends } from "./controller/analyticsController.js";
+import * as stackTraceParser from 'stacktrace-parser';
+
 
 dotenv.config();
 
@@ -118,7 +120,11 @@ app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
   res.status(500).json({ message: "Internal server error" });
 });
-
+try {
+  throw new Error('My error');
+} catch(ex) {
+  const stack = stackTraceParser.parse(ex.stack);
+}
 const server = app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

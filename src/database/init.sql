@@ -7,7 +7,7 @@ BEGIN;
 -- ============================
 CREATE TABLE users (
     user_id       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    email      TEXT UNIQUE NOT NULL,
+    username      TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     role          TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'superuser')),
     created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -46,15 +46,17 @@ CREATE TABLE posture_detections (
     created_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_posture_detections_user_id ON posture_detections(user_id);
+CREATE INDEX idx_posture_detections_user_id    ON posture_detections(user_id);
 CREATE INDEX idx_posture_detections_session_id ON posture_detections(session_id);
+CREATE INDEX idx_posture_detections_detected   ON posture_detections(detected_at);
 
 -- ============================
 -- AI Recommendations
+-- NOTE: ON DELETE CASCADE so the 500-frame purge never hits a FK error.
 -- ============================
 CREATE TABLE ai_recommendations (
     recommendation_id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    detection_id        UUID NOT NULL REFERENCES posture_detections(detection_id),
+    detection_id        UUID NOT NULL REFERENCES posture_detections(detection_id) ON DELETE CASCADE,
     recommendation_text TEXT NOT NULL,
     confidence           NUMERIC,
     model_used            TEXT,
