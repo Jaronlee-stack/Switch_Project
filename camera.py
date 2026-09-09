@@ -33,7 +33,7 @@ while True:
               "timestamp":time.strftime("%Y-%m%dT%H:%M:%S"),
               "image_b64": image_b64}
     response= requests.post(
-        f"http://{SERVER_IP}/frame",
+        f"http://{SERVER_IP}/api/frame",
         json=payload)
     print(f"Frame {frame_id} sent . Response: {response.json()}")
     frame_id+=1
