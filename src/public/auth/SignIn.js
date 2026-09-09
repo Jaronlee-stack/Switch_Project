@@ -77,7 +77,7 @@ authForm.addEventListener('submit', async (event) => {
 
     // Redirect by role
     const role = data.user.role.toLowerCase();
-    window.location.href = role === 'superuser' ? 'AdminDashboard.html' : 'Dashboard.html';
+    window.location.href = "/Dashboard.html";
 
   } catch (err) {
     alert(err.message);
