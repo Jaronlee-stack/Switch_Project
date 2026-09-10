@@ -415,3 +415,11 @@ body {
         align-items: flex-start;
     }
 }
+/* Badge variants */
+.status-badge.good    { background: #dcfce7; color: #16a34a; }
+.status-badge.warning { background: #fff7ed; color: #c2410c; }
+.status-badge.bad     { background: #fee2e2; color: #dc2626; }
+.status-badge.neutral { background: #f3f4f6; color: #6b7280; }
+
+/* Alert colours */
+.alert { display: flex; gap: 14px; align-items: flex-start; }

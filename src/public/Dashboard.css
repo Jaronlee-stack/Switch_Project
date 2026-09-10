@@ -513,3 +513,21 @@ nav li.active:hover {
 }
 
 }
+/* ===========================
+   STATUS PILL VARIANTS
+=========================== */
+
+.status-pill.pill-good {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-pill.pill-warning {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status-pill.pill-neutral {
+    background: #f3f4f6;
+    color: #6b7280;
+}

@@ -694,3 +694,20 @@ tbody tr:last-child td {
     }
 
 }
+/* ===========================
+   PAGINATION BAR
+=========================== */
+
+.pagination-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.pagination-bar button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

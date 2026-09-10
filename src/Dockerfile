@@ -1,12 +1,19 @@
-FROM golang:1.21 AS builder
-WORKDIR /app
-COPY go.mod ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o posture-backend ./main.go
+# Build context must be the project root (not src/), since this app
+# imports ../dbConfig.js relative to src/app.js.
+#
+#   docker build -f src/Dockerfile -t switch-backend .
+#
+FROM node:20-alpine
 
-FROM debian:stable-slim
-WORKDIR /root/
-COPY --from=builder /app/posture-backend .
-EXPOSE 8080
-CMD ["./posture-backend"]
+WORKDIR /app
+
+# Install deps first so this layer is cached unless package.json changes
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copy the rest of the app (dbConfig.js lives at repo root, src/ has the app)
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "src/app.js"]

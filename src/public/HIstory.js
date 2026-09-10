@@ -1,488 +1,307 @@
-/* =========================
-   LOAD SIDEBAR
-========================= */
+/* ==============================================
+   HIstory.js  —  all data from /api/history
+============================================== */
 
-fetch("sidebar.html")
-    .then(response => response.text())
-    .then(data => {
+/* State */
+let allDetections = [];
+let filteredDetections = [];
+let currentPage   = 0;
+const PAGE_SIZE   = 20;
 
-        document.getElementById("sidebar").innerHTML = data;
+/* Active filters */
+let activeStatus    = "all";
+let activeStartDate = null;
+let activeEndDate   = null;
+let activeSearch    = "";
 
-        // Highlight History in sidebar
-        const historyLink = document.querySelector(
-            '[data-page="history"]'
-        );
 
-        if (historyLink) {
-            historyLink.classList.add("active");
-        }
+/* ==============================================
+   BOOT
+============================================== */
 
-    })
-    .catch(error => {
-        console.error("Unable to load sidebar:", error);
+document.addEventListener("DOMContentLoaded", async () => {
+
+    await loadHistory();
+
+    /* Search */
+    document.getElementById("searchInput").addEventListener("input", function () {
+        activeSearch = this.value.toLowerCase().trim();
+        currentPage  = 0;
+        applyFilters();
     });
 
+    /* Date range toggle */
+    document.getElementById("dateRangeBtn").addEventListener("click", () => {
+        toggle("datePanel");
+        hide("filterPanel");
+    });
 
-/* =========================
-   HISTORY DATA
-========================= */
+    document.getElementById("applyDateBtn").addEventListener("click", () => {
+        activeStartDate = document.getElementById("startDate").value || null;
+        activeEndDate   = document.getElementById("endDate").value   || null;
+        currentPage     = 0;
+        applyFilters();
+    });
 
-const historyData = [
+    document.getElementById("clearDateBtn").addEventListener("click", () => {
+        activeStartDate = null;
+        activeEndDate   = null;
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value   = "";
+        applyFilters();
+    });
 
-    {
-        id: 1,
-        date: "Jul 26, 2025",
-        rawDate: "2025-07-26",
-        score: 91,
-        issue: "None",
-        duration: "5h 12m",
-        status: "Good Posture"
-    },
+    /* Status filter toggle */
+    document.getElementById("filterBtn").addEventListener("click", () => {
+        toggle("filterPanel");
+        hide("datePanel");
+    });
 
-    {
-        id: 2,
-        date: "Jul 25, 2025",
-        rawDate: "2025-07-25",
-        score: 87,
-        issue: "Neck Tilt",
-        duration: "4h 38m",
-        status: "Warning"
-    },
+    document.getElementById("applyFilterBtn").addEventListener("click", () => {
+        activeStatus = document.getElementById("statusFilter").value;
+        currentPage  = 0;
+        applyFilters();
+    });
 
-    {
-        id: 3,
-        date: "Jul 24, 2025",
-        rawDate: "2025-07-24",
-        score: 84,
-        issue: "Slouching",
-        duration: "3h 45m",
-        status: "Warning"
-    },
+    /* Export */
+    document.getElementById("exportBtn").addEventListener("click", exportCSV);
 
-    {
-        id: 4,
-        date: "Jul 23, 2025",
-        rawDate: "2025-07-23",
-        score: 78,
-        issue: "Slouching",
-        duration: "6h 10m",
-        status: "Warning"
-    },
+    /* Pagination */
+    document.getElementById("prevPage").addEventListener("click", () => {
+        if (currentPage > 0) { currentPage--; renderPage(); }
+    });
+    document.getElementById("nextPage").addEventListener("click", () => {
+        const maxPage = Math.ceil(filteredDetections.length / PAGE_SIZE) - 1;
+        if (currentPage < maxPage) { currentPage++; renderPage(); }
+    });
 
-    {
-        id: 5,
-        date: "Jul 22, 2025",
-        rawDate: "2025-07-22",
-        score: 92,
-        issue: "None",
-        duration: "4h 55m",
-        status: "Good Posture"
-    },
+    /* Modal close */
+    document.getElementById("closeModal").addEventListener("click", closeModal);
+    document.getElementById("reportModal").addEventListener("click", e => {
+        if (e.target.id === "reportModal") closeModal();
+    });
 
-    {
-        id: 6,
-        date: "Jul 21, 2025",
-        rawDate: "2025-07-21",
-        score: 70,
-        issue: "Forward Head",
-        duration: "7h 20m",
-        status: "Bad Posture"
-    },
-
-    {
-        id: 7,
-        date: "Jul 20, 2025",
-        rawDate: "2025-07-20",
-        score: 82,
-        issue: "Neck Tilt",
-        duration: "5h 30m",
-        status: "Warning"
-    },
-
-    {
-        id: 8,
-        date: "Jul 19, 2025",
-        rawDate: "2025-07-19",
-        score: 89,
-        issue: "None",
-        duration: "4h 40m",
-        status: "Good Posture"
-    }
-
-];
+});
 
 
-/* =========================
-   DOM ELEMENTS
-========================= */
+/* ==============================================
+   LOAD  (fetch from backend)
+============================================== */
 
-const tableBody = document.getElementById("historyTable");
-const emptyState = document.getElementById("emptyState");
+async function loadHistory() {
 
-const searchInput = document.getElementById("searchInput");
+    /* Fetch up to 200 detections — enough for client-side search */
+    const data = await api.get("/history?limit=200&offset=0");
 
-const dateRangeBtn = document.getElementById("dateRangeBtn");
-const filterBtn = document.getElementById("filterBtn");
-
-const datePanel = document.getElementById("datePanel");
-const filterPanel = document.getElementById("filterPanel");
-
-const startDate = document.getElementById("startDate");
-const endDate = document.getElementById("endDate");
-
-const issueFilter = document.getElementById("issueFilter");
-const statusFilter = document.getElementById("statusFilter");
-
-const applyDateBtn = document.getElementById("applyDateBtn");
-const applyFilterBtn = document.getElementById("applyFilterBtn");
-
-const exportBtn = document.getElementById("exportBtn");
-
-const reportModal = document.getElementById("reportModal");
-const closeModal = document.getElementById("closeModal");
-
-
-/* =========================
-   RENDER TABLE
-========================= */
-
-function renderHistory(data) {
-
-    tableBody.innerHTML = "";
-
-    if (data.length === 0) {
-
-        emptyState.classList.add("show");
-
+    if (!data || !data.detections) {
+        showEmpty();
         return;
-
     }
 
-    emptyState.classList.remove("show");
+    allDetections      = data.detections;
+    filteredDetections = [...allDetections];
+    renderPage();
+    updatePagination();
+}
 
 
-    data.forEach(session => {
+/* ==============================================
+   FILTER  (client-side)
+============================================== */
+
+function applyFilters() {
+
+    filteredDetections = allDetections.filter(d => {
+
+        const dateStr = d.detected_at?.slice(0, 10) ?? "";
+
+        if (activeStatus !== "all" && d.posture_status !== activeStatus) return false;
+
+        if (activeStartDate && dateStr < activeStartDate) return false;
+        if (activeEndDate   && dateStr > activeEndDate)   return false;
+
+        if (activeSearch) {
+            const hay = [
+                d.posture_status ?? "",
+                d.issue ?? "",
+                dateStr
+            ].join(" ").toLowerCase();
+            if (!hay.includes(activeSearch)) return false;
+        }
+
+        return true;
+    });
+
+    renderPage();
+    updatePagination();
+}
+
+
+/* ==============================================
+   RENDER TABLE PAGE
+============================================== */
+
+function renderPage() {
+
+    const tbody = document.getElementById("historyTable");
+    tbody.innerHTML = "";
+
+    const start   = currentPage * PAGE_SIZE;
+    const pageData = filteredDetections.slice(start, start + PAGE_SIZE);
+
+    if (pageData.length === 0) {
+        showEmpty();
+        return;
+    }
+
+    hideEmpty();
+
+    pageData.forEach(d => {
+
+        const score = Math.round(d.posture_score ?? 0);
 
         let scoreClass = "score-good";
+        if (score < 60) scoreClass = "score-bad";
+        else if (score < 80) scoreClass = "score-warning";
 
-        if (session.score < 80) {
-            scoreClass = "score-bad";
-        }
-        else if (session.score < 90) {
-            scoreClass = "score-warning";
-        }
+        const statusMap = {
+            good:               { label: "Good Posture",        cls: "good"    },
+            slouching:          { label: "Slouching",           cls: "warning" },
+            prolonged_slouching:{ label: "Prolonged Slouching", cls: "bad"     },
+            no_person:          { label: "No Person",           cls: "warning" }
+        };
+        const s = statusMap[d.posture_status] ?? { label: d.posture_status, cls: "warning" };
 
+        const dateTime = d.detected_at
+            ? new Date(d.detected_at).toLocaleString("en", {
+                month: "short", day: "numeric", year: "numeric",
+                hour: "2-digit", minute: "2-digit"
+              })
+            : "—";
 
-        let statusClass = "good";
-
-        if (session.status === "Warning") {
-            statusClass = "warning";
-        }
-        else if (session.status === "Bad Posture") {
-            statusClass = "bad";
-        }
-
+        const issue = d.issue ? d.issue.replace(/_/g, " ") : "None";
 
         const row = document.createElement("tr");
-
         row.innerHTML = `
-
+            <td><strong>${dateTime}</strong></td>
+            <td><span class="${scoreClass}">${score}%</span></td>
+            <td>${issue}</td>
+            <td><span class="status ${s.cls}">${s.label}</span></td>
+            <td>${d.neck_angle != null ? d.neck_angle.toFixed(1) + "°" : "—"}</td>
             <td>
-                <strong>${session.date}</strong>
-            </td>
-
-            <td>
-                <span class="${scoreClass}">
-                    ${session.score}%
-                </span>
-            </td>
-
-            <td>
-                ${session.issue}
-            </td>
-
-            <td>
-                ${session.duration}
-            </td>
-
-            <td>
-                <span class="status ${statusClass}">
-                    ${session.status}
-                </span>
-            </td>
-
-            <td>
-
-                <button
-                    class="view-btn"
-                    onclick="viewReport(${session.id})"
-                >
-
-                    <i class="fa-regular fa-eye"></i>
-
-                    View
-
+                <button class="view-btn" onclick="viewDetail('${d.detection_id}')">
+                    <i class="fa-regular fa-eye"></i> View
                 </button>
-
             </td>
-
         `;
-
-        tableBody.appendChild(row);
-
+        tbody.appendChild(row);
     });
-
 }
 
 
-/* =========================
-   SEARCH
-========================= */
-
-searchInput.addEventListener("input", function () {
-
-    const searchTerm = this.value.toLowerCase().trim();
-
-    const filtered = historyData.filter(session => {
-
-        return (
-            session.date.toLowerCase().includes(searchTerm) ||
-            session.issue.toLowerCase().includes(searchTerm) ||
-            session.status.toLowerCase().includes(searchTerm)
-        );
-
-    });
-
-    renderHistory(filtered);
-
-});
-
-
-/* =========================
-   DATE RANGE
-========================= */
-
-dateRangeBtn.addEventListener("click", function () {
-
-    datePanel.classList.toggle("show");
-
-    filterPanel.classList.remove("show");
-
-});
-
-
-applyDateBtn.addEventListener("click", function () {
-
-    const from = startDate.value;
-    const to = endDate.value;
-
-    let filtered = [...historyData];
-
-
-    if (from) {
-
-        filtered = filtered.filter(session =>
-            session.rawDate >= from
-        );
-
-    }
-
-
-    if (to) {
-
-        filtered = filtered.filter(session =>
-            session.rawDate <= to
-        );
-
-    }
-
-
-    renderHistory(filtered);
-
-});
-
-
-/* =========================
-   FILTER
-========================= */
-
-filterBtn.addEventListener("click", function () {
-
-    filterPanel.classList.toggle("show");
-
-    datePanel.classList.remove("show");
-
-});
-
-
-applyFilterBtn.addEventListener("click", function () {
-
-    const selectedIssue = issueFilter.value;
-    const selectedStatus = statusFilter.value;
-
-    let filtered = [...historyData];
-
-
-    if (selectedIssue !== "all") {
-
-        filtered = filtered.filter(session =>
-            session.issue === selectedIssue
-        );
-
-    }
-
-
-    if (selectedStatus !== "all") {
-
-        filtered = filtered.filter(session =>
-            session.status === selectedStatus
-        );
-
-    }
-
-
-    renderHistory(filtered);
-
-});
-
-
-/* =========================
-   VIEW REPORT
-========================= */
-
-function viewReport(id) {
-
-    const session = historyData.find(item =>
-        item.id === id
-    );
-
-    if (!session) {
-        return;
-    }
-
-
-    document.getElementById("modalTitle").textContent =
-        "Session Report";
-
-    document.getElementById("modalDate").textContent =
-        session.date;
-
-    document.getElementById("modalScore").textContent =
-        `${session.score}%`;
-
-    document.getElementById("modalIssue").textContent =
-        session.issue;
-
-    document.getElementById("modalDuration").textContent =
-        session.duration;
-
-    document.getElementById("modalStatus").textContent =
-        session.status;
-
-
-    let message = "";
-
-    if (session.score >= 90) {
-
-        message =
-            "Excellent posture session! Your posture remained stable throughout this session. Keep maintaining these habits.";
-
-    }
-    else if (session.score >= 80) {
-
-        message =
-            "Your posture was generally good, but there were some areas that could be improved. Try taking regular posture breaks.";
-
-    }
-    else {
-
-        message =
-            "Your posture score indicates that you may need more frequent corrections. Focus on maintaining a neutral head and spine position.";
-
-    }
-
-
-    document.getElementById("modalMessage").textContent =
-        message;
-
-
-    reportModal.classList.add("show");
-
+/* ==============================================
+   DETAIL MODAL
+============================================== */
+
+function viewDetail(detectionId) {
+
+    const d = allDetections.find(x => x.detection_id === detectionId);
+    if (!d) return;
+
+    const dateTime = d.detected_at
+        ? new Date(d.detected_at).toLocaleString("en", {
+            dateStyle: "medium", timeStyle: "short"
+          })
+        : "—";
+
+    document.getElementById("modalDate").textContent  = dateTime;
+    document.getElementById("modalScore").textContent = Math.round(d.posture_score ?? 0) + "%";
+    document.getElementById("modalStatus").textContent = d.posture_status?.replace(/_/g, " ") ?? "—";
+    document.getElementById("modalIssue").textContent  = d.issue?.replace(/_/g, " ") || "None";
+    document.getElementById("modalNeck").textContent   = d.neck_angle != null ? d.neck_angle.toFixed(1) + "°" : "—";
+    document.getElementById("modalTrunk").textContent  = d.trunk_lean != null ? d.trunk_lean.toFixed(1) + "°" : "—";
+    document.getElementById("modalHead").textContent   = d.head_offset_px != null ? d.head_offset_px.toFixed(1) + "px" : "—";
+
+    const score = Math.round(d.posture_score ?? 0);
+    let msg = "";
+    if (score >= 90)      msg = "Excellent posture! You maintained a healthy spine alignment during this detection.";
+    else if (score >= 75) msg = "Good posture with minor deviations. Keep being mindful of your head and shoulder position.";
+    else if (score >= 60) msg = "Some posture issues detected. Try adjusting your seat height and monitor distance.";
+    else                  msg = "Poor posture detected. Focus on sitting upright with your feet flat on the floor.";
+
+    document.getElementById("modalMessage").textContent = msg;
+
+    document.getElementById("reportModal").classList.add("show");
+}
+
+function closeModal() {
+    document.getElementById("reportModal").classList.remove("show");
 }
 
 
-/* =========================
-   CLOSE MODAL
-========================= */
-
-closeModal.addEventListener("click", function () {
-
-    reportModal.classList.remove("show");
-
-});
-
-
-reportModal.addEventListener("click", function (event) {
-
-    if (event.target === reportModal) {
-
-        reportModal.classList.remove("show");
-
-    }
-
-});
-
-
-/* =========================
+/* ==============================================
    EXPORT CSV
-========================= */
+============================================== */
 
-exportBtn.addEventListener("click", function () {
+function exportCSV() {
 
-    let csv =
-        "Date,Score,Main Issue,Duration,Status\n";
+    let csv = "Date/Time,Score,Issue,Status,Neck Angle,Trunk Lean\n";
 
-
-    historyData.forEach(session => {
-
-        csv +=
-            `"${session.date}",` +
-            `"${session.score}%","${session.issue}",` +
-            `"${session.duration}","${session.status}"\n`;
-
+    filteredDetections.forEach(d => {
+        const dt = d.detected_at ? new Date(d.detected_at).toLocaleString() : "";
+        csv += `"${dt}","${Math.round(d.posture_score ?? 0)}%","${d.issue ?? ""}","${d.posture_status ?? ""}","${d.neck_angle ?? ""}","${d.trunk_lean ?? ""}"\n`;
     });
 
-
-    const blob = new Blob(
-        [csv],
-        {
-            type: "text/csv;charset=utf-8;"
-        }
-    );
-
-
-    const url =
-        URL.createObjectURL(blob);
-
-
-    const link =
-        document.createElement("a");
-
-    link.href = url;
-
-    link.download =
-        "habit-coach-history.csv";
-
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href     = url;
+    link.download = "habit-coach-history.csv";
     link.click();
-
-
     URL.revokeObjectURL(url);
+}
 
-});
+
+/* ==============================================
+   PAGINATION
+============================================== */
+
+function updatePagination() {
+
+    const total    = filteredDetections.length;
+    const maxPage  = Math.max(0, Math.ceil(total / PAGE_SIZE) - 1);
+    const bar      = document.getElementById("paginationBar");
+    const info     = document.getElementById("paginationInfo");
+    const prevBtn  = document.getElementById("prevPage");
+    const nextBtn  = document.getElementById("nextPage");
+
+    bar.style.display = total > PAGE_SIZE ? "flex" : "none";
+
+    const start = currentPage * PAGE_SIZE + 1;
+    const end   = Math.min((currentPage + 1) * PAGE_SIZE, total);
+    info.textContent = `Showing ${start}–${end} of ${total}`;
+
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= maxPage;
+}
 
 
-/* =========================
-   INITIAL LOAD
-========================= */
+/* ==============================================
+   HELPERS
+============================================== */
 
-renderHistory(historyData);
+function toggle(id) {
+    document.getElementById(id).classList.toggle("show");
+}
+
+function hide(id) {
+    document.getElementById(id).classList.remove("show");
+}
+
+function showEmpty() {
+    document.getElementById("emptyState").classList.add("show");
+}
+
+function hideEmpty() {
+    document.getElementById("emptyState").classList.remove("show");
+}

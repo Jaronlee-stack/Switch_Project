@@ -197,18 +197,23 @@ app.get(
 
 /* ---------- Posture ingestion ---------- */
 
+/* /api/frame is intentionally public — camera.py posts here without a browser cookie */
 app.post(
   "/api/frame",
   ingestFrame
 );
 
+/* Latest detection for the logged-in user */
 app.get(
   "/api/posture/latest",
+  authenticateJWT,
   getLatest
 );
 
+/* SSE stream — same-origin EventSource sends the httpOnly cookie automatically */
 app.get(
   "/api/posture/stream",
+  authenticateJWT,
   streamPosture
 );
 

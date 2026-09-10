@@ -20,221 +20,117 @@
 <body>
 <div id="sidebar"></div>
 <div class="container">
-    <!-- ================= MAIN ================= -->
     <main class="main">
 
         <!-- Header -->
         <div class="header">
             <div>
-                <h1>
-                    Good Afternoon, Jiliana!
-                </h1>
-                <p>
-                    Here's your posture overview for today
-                </p>
+                <h1 id="greeting">Good day!</h1>
+                <p>Here's your posture overview for today</p>
             </div>
-
             <div class="connection">
-                <span class="dot"></span>
-                Connected
-                <small>Robot Online</small>
+                <span class="dot" id="connection-dot"></span>
+                <span id="connection-label">Checking...</span>
+                <small id="connection-sub"></small>
             </div>
         </div>
 
         <!-- Dashboard Cards -->
         <section class="dashboard-grid">
 
-            <!-- Progress -->
+            <!-- Progress Circle -->
             <div class="card progress-card">
-
                 <div class="progress-circle">
-
                     <svg width="230" height="230">
-
-                        <circle
-                            class="bg-circle"
-                            cx="115"
-                            cy="115"
-                            r="90">
-                        </circle>
-
-                        <circle
-                            class="progress-ring-circle"
-                            cx="115"
-                            cy="115"
-                            r="90">
-                        </circle>
-
+                        <circle class="bg-circle" cx="115" cy="115" r="90"></circle>
+                        <circle class="progress-ring-circle" cx="115" cy="115" r="90"></circle>
                     </svg>
-
                     <div class="progress-text">
-
-                        <h2 class="score">0%</h2>
-
+                        <h2 class="score">—</h2>
                         <p>Posture Score</p>
-
                     </div>
-
                 </div>
-
-                <div class="status-pill">
-                    ● Good Posture
-                </div>
-
-                <small>
-                    Updated 30 seconds ago
-                </small>
-
+                <div class="status-pill" id="status-pill">Loading...</div>
+                <small id="last-updated">Fetching data...</small>
             </div>
 
-            <!-- Right Cards -->
-
+            <!-- Right stat cards -->
             <div class="stats">
 
                 <div class="small-card">
-
-                    <div class="icon green">
-                        <i class="ri-pulse-line"></i>
-                    </div>
-
+                    <div class="icon green"><i class="ri-pulse-line"></i></div>
                     <h4>CURRENT STATUS</h4>
-
-                    <h2>Good</h2>
-
-                    <p>Posture aligned</p>
-
+                    <h2 id="current-status">—</h2>
+                    <p id="current-issue">Loading...</p>
                 </div>
 
                 <div class="small-card">
-
-                    <div class="icon blue">
-                        <i class="ri-robot-line"></i>
-                    </div>
-
+                    <div class="icon blue"><i class="ri-robot-line"></i></div>
                     <h4>ROBOT STATUS</h4>
-
                     <h2>Connected</h2>
-
                     <p>Mirroring active</p>
-
                 </div>
 
                 <div class="small-card">
-
-                    <div class="icon orange">
-                        <i class="ri-error-warning-line"></i>
-                    </div>
-
+                    <div class="icon orange"><i class="ri-error-warning-line"></i></div>
                     <h4>TODAY'S CORRECTIONS</h4>
-
-                    <h2 id="corrections">5</h2>
-
-                    <p>3 fewer than yesterday</p>
-
+                    <h2 id="corrections">—</h2>
+                    <p id="corrections-sub">Loading...</p>
                 </div>
 
                 <div class="small-card">
-
-                    <div class="icon green">
-                        <i class="ri-line-chart-line"></i>
-                    </div>
-
+                    <div class="icon green"><i class="ri-line-chart-line"></i></div>
                     <h4>WEEKLY TREND</h4>
-
-                    <h2>+14%</h2>
-
-                    <p>Improving steadily</p>
-
+                    <h2 id="weekly-trend">—</h2>
+                    <p id="weekly-trend-sub">vs last week</p>
                 </div>
 
             </div>
-
         </section>
 
         <!-- AI Insight -->
-
         <section class="insight-card">
-
-            <div class="brain">
-
-                <i class="ri-brain-line"></i>
-
-            </div>
-
+            <div class="brain"><i class="ri-brain-line"></i></div>
             <div>
-
                 <h2>AI Insight</h2>
-
-                <p>
-
-                    "You usually begin slouching around
-                    <strong>2 PM</strong>.
-                    Consider setting a break reminder at
-                    <strong>1:45 PM</strong>
-                    to prevent this pattern.
-
-                    Your morning posture has improved by
-                    <strong>12%</strong>
-                    this week — keep it up!"
-
-                </p>
-
+                <p id="ai-insight">Analysing your posture data...</p>
                 <div class="insight-footer">
-
-                    <span>
-                        Powered by Ollama AI
-                    </span>
-
-                    <span>
-                        •
-                    </span>
-
-                    <span>
-                        Analyzed 847 data points
-                    </span>
-
+                    <span>Powered by Ollama AI</span>
+                    <span>•</span>
+                    <span id="insight-data-points">—</span>
                 </div>
-
             </div>
-
         </section>
 
         <!-- Bottom Section -->
-
         <section class="bottom-grid">
 
             <div class="large-card">
-
                 <h2>Today's Activity</h2>
-
-                <div class="placeholder-chart">
-                    Activity Graph Here
+                <div class="chart-container" style="height:260px;position:relative;">
+                    <canvas id="activityChart"></canvas>
                 </div>
-
             </div>
 
             <div class="large-card">
-
                 <h2>Habit Streak</h2>
-
                 <div class="streak">
-
-                    <h1>27</h1>
-
+                    <h1 id="streak-days">—</h1>
                     <p>Days</p>
-
+                    <small id="streak-sub" style="color:#9ca3af;margin-top:8px;font-size:13px;"></small>
                 </div>
-
             </div>
 
         </section>
 
     </main>
-
 </div>
 
-<script src=" Dashboard.js"></script>
-<script src=" sidebar.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="api.js"></script>
+<script src="Dashboard.js"></script>
+<script src="sidebar.js"></script>
 
 </body>
 </html>

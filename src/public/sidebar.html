@@ -1,68 +1,53 @@
 <aside class="sidebar">
- 
+
     <!-- Logo -->
     <div class="logo">
-
         <div class="logo-icon">
             <i class="ri-robot-2-line"></i>
         </div>
-
         <div class="logo-text">
             <h2>Habit Coach</h2>
             <p>AI POSTURE SYSTEM</p>
         </div>
-
     </div>
 
     <!-- Navigation -->
     <nav>
-
         <ul>
-
-            <li>
+            <li data-page="Dashboard.html">
                 <i class="ri-dashboard-line"></i>
-                <a href="Dashboard.html">Dashboard</a>
+                <a href="/Dashboard.html">Dashboard</a>
             </li>
-
-            <li>
+            <li data-page="LiveCoach.html">
                 <i class="ri-live-line"></i>
-                <a href="LiveCoach.html">Live Coach</a>
+                <a href="/LiveCoach.html">Live Coach</a>
             </li>
-
-            <li>
+            <li data-page="Analytics.html">
                 <i class="ri-bar-chart-box-line"></i>
-                <a href="Analytics.html">Analytics</a>
+                <a href="/Analytics.html">Analytics</a>
             </li>
-
-            <li>
+            <li data-page="History.html">
                 <i class="ri-history-line"></i>
-                <a href="History.html">History</a>
+                <a href="/History.html">History</a>
             </li>
-
-            <li>
-                <i class="ri-settings-3-line"></i>
-                <a href="Settings.html">Settings</a>
-            </li>
-
         </ul>
-
     </nav>
 
     <!-- Bottom Profile -->
     <div class="sidebar-bottom">
 
         <div class="profile">
-
-            <div class="avatar">
-                HC
-            </div>
-
+            <div class="avatar" id="sidebar-avatar">HC</div>
             <div class="profile-info">
-                <h3>Jiliana</h3>
-                <p>Connected</p>
+                <h3 id="sidebar-username">Loading...</h3>
+                <p id="sidebar-status">Connected</p>
             </div>
-
         </div>
+
+        <button class="logout-btn" id="sidebar-logout">
+            <i class="ri-logout-box-r-line"></i>
+            <span>Sign Out</span>
+        </button>
 
     </div>
 
