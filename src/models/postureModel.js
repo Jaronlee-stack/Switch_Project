@@ -132,11 +132,11 @@ async function client_query_streak(userId, sessionId) {
         )
         SELECT COUNT(*)::int AS streak
         FROM ordered
-        HERE posture_status <> 'good'
-         AND rn < COALESCE(
-        (SELECT MIN(rn) FROM ordered WHERE posture_status = 'good'),
-        999999   -- no good frame ever → count all bad frames
-        )
+        WHERE posture_status <> 'good'
+          AND rn < COALESCE(
+              (SELECT MIN(rn) FROM ordered WHERE posture_status = 'good'),
+              999999
+          )
         `,
         [userId, sessionId]
     );

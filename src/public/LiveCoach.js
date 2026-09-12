@@ -5,11 +5,9 @@
 /* Alert log (newest first, max 5) */
 const alertLog = [];
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    connectStream();
+document.addEventListener("DOMContentLoaded", async () => {
+    await connectStream();
     initControls();
-
 });
 
 

@@ -47,8 +47,6 @@ import {
   getAnalyticsTrends
 } from "./controller/analyticsController.js";
 
-import * as stackTraceParser from "stacktrace-parser";
-
 
 /* ---------- Environment ---------- */
 
@@ -58,116 +56,68 @@ dotenv.config();
 /* ---------- Paths ---------- */
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const publicDir = path.join(__dirname, "public");
+const __dirname  = path.dirname(__filename);
+const publicDir  = path.join(__dirname, "public");
 
 
 /* ---------- Express ---------- */
 
-const app = express();
-
+const app  = express();
 const port = process.env.PORT || 3000;
 
 
 /* ---------- CORS ---------- */
 
-const CLIENT_URL =
-  process.env.CLIENT_URL || "http://localhost:5500";
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5500";
 
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    CLIENT_URL
-  );
+  res.header("Access-Control-Allow-Origin",      CLIENT_URL);
+  res.header("Access-Control-Allow-Headers",     "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods",     "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Credentials", "true");
 
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-
-  res.header(
-    "Access-Control-Allow-Credentials",
-    "true"
-  );
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
+  if (req.method === "OPTIONS") return res.sendStatus(200);
   next();
 });
 
 
 /* ---------- Middleware ---------- */
 
-app.use(
-  express.json({
-    limit: "10mb"
-  })
-);
-
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
 
 /* ---------- Static frontend ---------- */
 
-app.use(
-  express.static(publicDir)
-);
+app.use(express.static(publicDir));
 
 
 /* ---------- Public page routes ---------- */
 
+app.get("/", (req, res) => {
+  res.redirect("/Dashboard.html");
+});
+
 app.get("/login", (req, res) => {
-  res.redirect(
-    "/auth/SignIn.html?mode=signin"
-  );
+  res.redirect("/auth/SignIn.html?mode=signin");
 });
 
 app.get("/register", (req, res) => {
-  res.redirect(
-    "/auth/SignIn.html?mode=signup"
-  );
+  res.redirect("/auth/SignIn.html?mode=signup");
 });
 
 
 /* ---------- Public API ---------- */
 
-app.post(
-  "/api/auth/register",
-  register
-);
-
-app.post(
-  "/api/auth/login",
-  login
-);
-
-app.post(
-  "/api/auth/logout",
-  logout
-);
+app.post("/api/auth/register", register);
+app.post("/api/auth/login",    login);
+app.post("/api/auth/logout",   logout);
 
 
 /* ---------- Protected user routes ---------- */
 
-app.get(
-  "/api/user/me",
-  authenticateJWT,
-  getMe
-);
-
-app.put(
-  "/api/user/password",
-  authenticateJWT,
-  changePassword
-);
+app.get("/api/user/me",       authenticateJWT, getMe);
+app.put("/api/user/password", authenticateJWT, changePassword);
 
 
 /* ---------- Admin routes ---------- */
@@ -179,17 +129,10 @@ app.get(
   async (req, res) => {
     try {
       const users = await getAllUsers();
-
-      res.json({
-        users
-      });
-
+      res.json({ users });
     } catch (err) {
       console.error(err);
-
-      res.status(500).json({
-        message: "Failed to fetch users"
-      });
+      res.status(500).json({ message: "Failed to fetch users" });
     }
   }
 );
@@ -197,162 +140,58 @@ app.get(
 
 /* ---------- Posture ingestion ---------- */
 
-/* /api/frame is intentionally public — camera.py posts here without a browser cookie */
-app.post(
-  "/api/frame",
-  ingestFrame
-);
-
-/* Latest detection for the logged-in user */
-app.get(
-  "/api/posture/latest",
-  authenticateJWT,
-  getLatest
-);
-
-/* SSE stream — same-origin EventSource sends the httpOnly cookie automatically */
-app.get(
-  "/api/posture/stream",
-  authenticateJWT,
-  streamPosture
-);
+app.post("/api/frame",          ingestFrame);
+app.get("/api/posture/latest",  authenticateJWT, getLatest);
+app.get("/api/posture/stream",  authenticateJWT, streamPosture);
 
 
 /* ---------- History ---------- */
 
-app.get(
-  "/api/history",
-  authenticateJWT,
-  getHistoryList
-);
-
-app.get(
-  "/api/history/:detection_id",
-  authenticateJWT,
-  getHistoryDetail
-);
+app.get("/api/history",              authenticateJWT, getHistoryList);
+app.get("/api/history/:detection_id",authenticateJWT, getHistoryDetail);
 
 
 /* ---------- Analytics ---------- */
 
-app.get(
-  "/api/analytics/summary",
-  authenticateJWT,
-  getAnalyticsSummary
-);
-
-app.get(
-  "/api/analytics/trends",
-  authenticateJWT,
-  getAnalyticsTrends
-);
+app.get("/api/analytics/summary", authenticateJWT, getAnalyticsSummary);
+app.get("/api/analytics/trends",  authenticateJWT, getAnalyticsTrends);
 
 
 /* ---------- Rules ---------- */
 
-app.get(
-  "/api/rules",
-  authenticateJWT,
-  listRulesEndpoint
-);
-
-app.post(
-  "/api/rules",
-  authenticateJWT,
-  requireRole("superuser"),
-  addRule
-);
-
-app.put(
-  "/api/rules/:id",
-  authenticateJWT,
-  requireRole("superuser"),
-  editRule
-);
-
-app.delete(
-  "/api/rules/:id",
-  authenticateJWT,
-  requireRole("superuser"),
-  removeRule
-);
-
-
-/* ---------- Sanity check ---------- */
-
-app.get("/", (req, res) => {
-  res.json({
-    message: "Habit Coach API is running"
-  });
-});
+app.get("/api/rules",      authenticateJWT, listRulesEndpoint);
+app.post("/api/rules",     authenticateJWT, requireRole("superuser"), addRule);
+app.put("/api/rules/:id",  authenticateJWT, requireRole("superuser"), editRule);
+app.delete("/api/rules/:id", authenticateJWT, requireRole("superuser"), removeRule);
 
 
 /* ---------- 404 ---------- */
 
 app.use((req, res) => {
-  res.status(404).json({
-    message:
-      `No route for ${req.method} ${req.originalUrl}`
-  });
+  res.status(404).json({ message: `No route for ${req.method} ${req.originalUrl}` });
 });
 
 
 /* ---------- Error handler ---------- */
 
 app.use((err, req, res, next) => {
-  console.error(
-    "Unhandled error:",
-    err
-  );
-
-  res.status(500).json({
-    message: "Internal server error"
-  });
+  console.error("Unhandled error:", err);
+  res.status(500).json({ message: "Internal server error" });
 });
 
 
-/* ---------- Stack trace test ---------- */
+/* ---------- Start ---------- */
 
-try {
-  throw new Error("My error");
-
-} catch (ex) {
-  stackTraceParser.parse(ex.stack);
-}
-
-
-/* ---------- Start server ---------- */
-
-const server = app.listen(
-  port,
-  () => {
-    console.log(
-      `Server running on http://localhost:${port}`
-    );
-  }
-);
-
-
-/* ---------- Start Ollama ---------- */
+const server = app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
 
 startOllamaPoller();
 
 
 /* ---------- Graceful shutdown ---------- */
 
-process.on(
-  "SIGINT",
-  async () => {
-
-    try {
-      await closePool();
-
-    } catch (err) {
-      console.error(err);
-    }
-
-    server.close(
-      () => process.exit(0)
-    );
-  }
-);
+process.on("SIGINT", async () => {
+  try { await closePool(); } catch (err) { console.error(err); }
+  server.close(() => process.exit(0));
+});
