@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Coach</title>
+
+    <link rel="stylesheet" href="LiveCoach.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+<div id="sidebar"></div>
+
+<div class="main-content">
+
+    <!-- Heading -->
+    <div class="page-title">
+        <h1>Live Coach</h1>
+        <p>Real-time posture monitoring &amp; feedback</p>
+    </div>
+
+    <div class="dashboard">
+
+        <!-- Camera Section -->
+        <div class="camera-section">
+
+            <div class="camera-header">
+                <div class="camera-title">
+                    <span class="live-dot" id="live-dot"></span>
+                    <h2>Live Feed — Raspberry Pi Camera</h2>
+                </div>
+                <div class="camera-icons">
+                    <i class="ri-volume-up-line" id="speaker-btn"></i>
+                    <i class="ri-fullscreen-line" id="fullscreen-btn"></i>
+                </div>
+            </div>
+
+            <div class="camera-feed">
+                <div class="camera-placeholder" id="camera-placeholder">
+                    <div class="mediapipe-tag">
+                        <i class="ri-camera-line"></i>
+                        MediaPipe Active
+                    </div>
+                    <div id="video-container">
+                        <p id="camera-msg">Waiting for Camera</p>
+                    </div>
+                    <div class="bottom-tags">
+                        <div class="fps-tag">
+                            Stream: <span id="stream-status">Connecting...</span>
+                        </div>
+                        <div class="processing-tag">
+                            Processing: <span>OpenCV + MediaPipe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+
+            <!-- Posture Status -->
+            <div class="status-card">
+                <h2>Posture Status</h2>
+                <div class="status-badge" id="status-badge">● Connecting...</div>
+
+                <div class="status-item">
+                    <span>Neck Angle</span>
+                    <strong id="stat-neck">—</strong>
+                </div>
+                <div class="status-item">
+                    <span>Trunk Lean</span>
+                    <strong id="stat-trunk">—</strong>
+                </div>
+                <div class="status-item">
+                    <span>Head Offset</span>
+                    <strong id="stat-head">—</strong>
+                </div>
+                <div class="status-item">
+                    <span>Score</span>
+                    <strong id="stat-score">—</strong>
+                </div>
+            </div>
+
+            <!-- Alerts -->
+            <div class="alert-card">
+                <h2>Real-time Alerts</h2>
+                <div id="alerts-container">
+                    <div class="alert success-alert">
+                        <div class="alert-icon"><i class="ri-checkbox-circle-line"></i></div>
+                        <div class="alert-text">
+                            <p>Waiting for data stream...</p>
+                            <small>—</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<script src="api.js"></script>
+<script src="LiveCoach.js"></script>
+<script src="sidebar.js"></script>
+</body>
+</html>

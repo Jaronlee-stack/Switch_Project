@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Coach Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="Dashboard.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="sidebar"></div>
+<div class="container">
+    <main class="main">
+
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1 id="greeting">Good day!</h1>
+                <p>Here's your posture overview for today</p>
+            </div>
+            <div class="connection">
+                <span class="dot" id="connection-dot"></span>
+                <span id="connection-label">Checking...</span>
+                <small id="connection-sub"></small>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <section class="dashboard-grid">
+
+            <!-- Progress Circle -->
+            <div class="card progress-card">
+                <div class="progress-circle">
+                    <svg width="230" height="230">
+                        <circle class="bg-circle" cx="115" cy="115" r="90"></circle>
+                        <circle class="progress-ring-circle" cx="115" cy="115" r="90"></circle>
+                    </svg>
+                    <div class="progress-text">
+                        <h2 class="score">—</h2>
+                        <p>Posture Score</p>
+                    </div>
+                </div>
+                <div class="status-pill" id="status-pill">Loading...</div>
+                <small id="last-updated">Fetching data...</small>
+            </div>
+
+            <!-- Right stat cards -->
+            <div class="stats">
+
+                <div class="small-card">
+                    <div class="icon green"><i class="ri-pulse-line"></i></div>
+                    <h4>CURRENT STATUS</h4>
+                    <h2 id="current-status">—</h2>
+                    <p id="current-issue">Loading...</p>
+                </div>
+
+                <div class="small-card">
+                    <div class="icon blue"><i class="ri-robot-line"></i></div>
+                    <h4>ROBOT STATUS</h4>
+                    <h2>Connected</h2>
+                    <p>Mirroring active</p>
+                </div>
+
+                <div class="small-card">
+                    <div class="icon orange"><i class="ri-error-warning-line"></i></div>
+                    <h4>TODAY'S CORRECTIONS</h4>
+                    <h2 id="corrections">—</h2>
+                    <p id="corrections-sub">Loading...</p>
+                </div>
+
+                <div class="small-card">
+                    <div class="icon green"><i class="ri-line-chart-line"></i></div>
+                    <h4>WEEKLY TREND</h4>
+                    <h2 id="weekly-trend">—</h2>
+                    <p id="weekly-trend-sub">vs last week</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- AI Insight -->
+        <section class="insight-card">
+            <div class="brain"><i class="ri-brain-line"></i></div>
+            <div>
+                <h2>AI Insight</h2>
+                <p id="ai-insight">Analysing your posture data...</p>
+                <div class="insight-footer">
+                    <span>Powered by Ollama AI</span>
+                    <span>•</span>
+                    <span id="insight-data-points">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Section -->
+        <section class="bottom-grid">
+
+            <div class="large-card">
+                <h2>Today's Activity</h2>
+                <div class="chart-container" style="height:260px;position:relative;">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+
+            <div class="large-card">
+                <h2>Habit Streak</h2>
+                <div class="streak">
+                    <h1 id="streak-days">—</h1>
+                    <p>Days</p>
+                    <small id="streak-sub" style="color:#9ca3af;margin-top:8px;font-size:13px;"></small>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="api.js"></script>
+<script src="Dashboard.js"></script>
+<script src="sidebar.js"></script>
+
+</body>
+</html>

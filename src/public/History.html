@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Coach History</title>
+
+    <link rel="stylesheet" href="History.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+<div id="sidebar"></div>
+
+<div class="container">
+    <main class="main">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div>
+                <h1>History</h1>
+                <p>Review your past posture detections</p>
+            </div>
+        </div>
+
+        <!-- SEARCH / FILTER BAR -->
+        <section class="history-toolbar">
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search by issue or status...">
+            </div>
+
+            <div class="toolbar-buttons">
+                <button class="toolbar-btn" id="dateRangeBtn">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>Date Range</span>
+                </button>
+                <button class="toolbar-btn" id="filterBtn">
+                    <i class="fa-solid fa-filter"></i>
+                    <span>Filter</span>
+                </button>
+                <button class="toolbar-btn" id="exportBtn">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Export</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- DATE RANGE PANEL -->
+        <section class="filter-panel" id="datePanel">
+            <div class="date-input">
+                <label for="startDate">From</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="date-input">
+                <label for="endDate">To</label>
+                <input type="date" id="endDate">
+            </div>
+            <button class="apply-btn" id="applyDateBtn">Apply</button>
+            <button class="apply-btn" id="clearDateBtn" style="background:#6b7280">Clear</button>
+        </section>
+
+        <!-- FILTER PANEL -->
+        <section class="filter-panel" id="filterPanel">
+            <div>
+                <label for="statusFilter">Status</label>
+                <select id="statusFilter">
+                    <option value="all">All Status</option>
+                    <option value="good">Good Posture</option>
+                    <option value="slouching">Slouching</option>
+                    <option value="prolonged_slouching">Prolonged Slouching</option>
+                </select>
+            </div>
+            <button class="apply-btn" id="applyFilterBtn">Apply</button>
+        </section>
+
+        <!-- PAGINATION INFO -->
+        <div class="pagination-bar" id="paginationBar" style="display:none;">
+            <span id="paginationInfo"></span>
+            <div>
+                <button class="toolbar-btn" id="prevPage">← Prev</button>
+                <button class="toolbar-btn" id="nextPage">Next →</button>
+            </div>
+        </div>
+
+        <!-- HISTORY TABLE -->
+        <section class="history-card">
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE / TIME</th>
+                            <th>SCORE</th>
+                            <th>ISSUE</th>
+                            <th>STATUS</th>
+                            <th>NECK°</th>
+                            <th>DETAIL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable"></tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" id="emptyState">
+                <i class="fa-regular fa-folder-open"></i>
+                <h3>No detections found</h3>
+                <p>Try adjusting your search or filter settings.</p>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="reportModal">
+    <div class="report-modal">
+
+        <button class="close-modal" id="closeModal">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="modal-icon"><i class="fa-solid fa-chart-line"></i></div>
+
+        <h2 id="modalTitle">Detection Detail</h2>
+        <p class="modal-date" id="modalDate"></p>
+
+        <div class="report-grid">
+            <div><span>Posture Score</span><strong id="modalScore"></strong></div>
+            <div><span>Status</span><strong id="modalStatus"></strong></div>
+            <div><span>Issue</span><strong id="modalIssue"></strong></div>
+            <div><span>Neck Angle</span><strong id="modalNeck"></strong></div>
+            <div><span>Trunk Lean</span><strong id="modalTrunk"></strong></div>
+            <div><span>Head Offset</span><strong id="modalHead"></strong></div>
+        </div>
+
+        <div class="modal-message">
+            <i class="fa-solid fa-lightbulb"></i>
+            <p id="modalMessage"></p>
+        </div>
+
+    </div>
+</div>
+
+<script src="api.js"></script>
+<script src="HIstory.js"></script>
+<script src="sidebar.js"></script>
+</body>
+</html>
