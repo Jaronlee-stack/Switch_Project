@@ -10,7 +10,6 @@ import base64
 import os
 import time
 import uuid
-
 import cv2
 import requests
 
@@ -35,7 +34,7 @@ def main():
         raise SystemExit("Set CAMERA_USER_ID to a UUID from the users table")
 
     session_id = get_session_id()
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture("http://10.71.55.195:4747/video") # Change this
     if not cap.isOpened():
         raise SystemExit("Could not open webcam")
 
