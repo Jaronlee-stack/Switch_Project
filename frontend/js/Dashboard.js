@@ -4,21 +4,37 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    animateProgress(88);
-    animateCorrections(5);
-    updateTimestamp();
+    // Temporary data for development
+    // These will eventually come from the Node.js API
+    const dashboardData = {
+        postureScore: 88,
+        corrections: 5,
+        weeklyTrend: "+12%",
+        aiInsight: "You maintain your best posture during the morning. Keep that routine!",
+        lastUpdated: new Date()
+    };
+
+    animateProgress(dashboardData.postureScore);
+    animateCorrections(dashboardData.corrections);
+    updateTimestamp(dashboardData.lastUpdated);
+    updateWeeklyTrend(dashboardData.weeklyTrend);
+    updateAIInsight(dashboardData.aiInsight);
+
     pulseConnection();
     animateCards();
-
 });
+
 
 // ==========================
 // CIRCULAR PROGRESS
 // ==========================
+
 function animateProgress(target) {
 
     const circle = document.querySelector(".progress-ring-circle");
     const score = document.querySelector(".score");
+
+    if (!circle || !score) return;
 
     const radius = 90;
     const circumference = 2 * Math.PI * radius;
@@ -34,176 +50,166 @@ function animateProgress(target) {
 
         score.textContent = current + "%";
 
-        const offset = circumference - (current / 100) * circumference;
+        const offset =
+            circumference - (current / 100) * circumference;
 
         circle.style.strokeDashoffset = offset;
 
-        if(current >= target){
+        if (current >= target) {
             clearInterval(interval);
         }
 
-    },20);
-
+    }, 20);
 }
+
 
 // ==========================
 // TODAY'S CORRECTIONS
 // ==========================
 
-function animateCorrections(target){
+function animateCorrections(target) {
 
     const correction = document.getElementById("corrections");
 
+    if (!correction) return;
+
     let count = 0;
 
-    const timer = setInterval(()=>{
+    const timer = setInterval(() => {
 
         count++;
 
         correction.textContent = count;
 
-        if(count >= target){
+        if (count >= target) {
             clearInterval(timer);
         }
 
-    },150);
-
+    }, 150);
 }
 
+
 // ==========================
-// UPDATE TIMER
+// UPDATE TIMESTAMP
 // ==========================
 
-function updateTimestamp(){
+function updateTimestamp(lastUpdated) {
 
     const text = document.querySelector(".progress-card small");
 
-    let seconds = 30;
+    if (!text) return;
 
-    setInterval(()=>{
+    function update() {
 
-        seconds++;
+        const seconds = Math.floor(
+            (new Date() - new Date(lastUpdated)) / 1000
+        );
 
-        text.textContent = `Updated ${seconds} seconds ago`;
+        text.textContent =
+            `Updated ${seconds} seconds ago`;
+    }
 
-        if(seconds >= 59){
-            seconds = 0;
-        }
+    update();
 
-    },1000);
-
+    setInterval(update, 1000);
 }
+
+
+// ==========================
+// WEEKLY TREND
+// ==========================
+
+function updateWeeklyTrend(trend) {
+
+    const cards = document.querySelectorAll(".small-card h2");
+
+    // Your existing design appears to use
+    // the 4th small-card for the weekly trend
+    if (cards[3]) {
+        cards[3].textContent = trend;
+    }
+}
+
+
+// ==========================
+// AI INSIGHT
+// ==========================
+
+function updateAIInsight(insight) {
+
+    const text = document.querySelector(".insight-card p");
+
+    if (!text) return;
+
+    text.style.opacity = "0";
+
+    setTimeout(() => {
+
+        text.textContent = insight;
+        text.style.opacity = "1";
+
+    }, 400);
+}
+
 
 // ==========================
 // CONNECTION PULSE
 // ==========================
 
-function pulseConnection(){
+function pulseConnection() {
 
     const dot = document.querySelector(".dot");
 
-    setInterval(()=>{
+    if (!dot) return;
 
-        dot.animate([
+    setInterval(() => {
+
+        dot.animate(
+            [
+                {
+                    transform: "scale(1)",
+                    opacity: 1
+                },
+                {
+                    transform: "scale(1.6)",
+                    opacity: 0.4
+                },
+                {
+                    transform: "scale(1)",
+                    opacity: 1
+                }
+            ],
             {
-                transform:"scale(1)",
-                opacity:1
-            },
-            {
-                transform:"scale(1.6)",
-                opacity:.4
-            },
-            {
-                transform:"scale(1)",
-                opacity:1
+                duration: 1000
             }
+        );
 
-        ],{
-
-            duration:1000
-
-        });
-
-    },1200);
-
+    }, 1200);
 }
+
 
 // ==========================
 // CARD ANIMATION
 // ==========================
 
-function animateCards(){
+function animateCards() {
 
-    const cards = document.querySelectorAll(".card, .small-card, .large-card, .insight-card");
+    const cards = document.querySelectorAll(
+        ".card, .small-card, .large-card, .insight-card"
+    );
 
-    cards.forEach((card,index)=>{
+    cards.forEach((card, index) => {
 
-        card.style.opacity="0";
-        card.style.transform="translateY(40px)";
+        card.style.opacity = "0";
+        card.style.transform = "translateY(40px)";
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            card.style.transition=".6s ease";
+            card.style.transition = ".6s ease";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
 
-            card.style.opacity="1";
-            card.style.transform="translateY(0)";
-
-        },index*120);
+        }, index * 120);
 
     });
-
 }
-
-// ==========================
-// RANDOM WEEKLY TREND
-// ==========================
-
-const trends = [
-    "+10%",
-    "+12%",
-    "+14%",
-    "+16%",
-    "+18%"
-];
-
-setInterval(()=>{
-
-    const trend = document.querySelectorAll(".small-card h2")[3];
-
-    trend.textContent = trends[Math.floor(Math.random()*trends.length)];
-
-},10000);
-
-// ==========================
-// AI INSIGHT FADE
-// ==========================
-
-const insights = [
-
-    "You usually begin slouching around 2 PM. Consider taking a short stretch break at 1:45 PM.",
-
-    "Excellent improvement! Your posture has increased by 12% this week.",
-
-    "You maintain your best posture during the morning. Keep that routine!",
-
-    "Remember to keep both feet flat on the floor while sitting.",
-
-    "Standing for 2 minutes every hour can greatly improve posture."
-
-];
-
-setInterval(()=>{
-
-    const text = document.querySelector(".insight-card p");
-
-    text.style.opacity="0";
-
-    setTimeout(()=>{
-
-        text.textContent = insights[Math.floor(Math.random()*insights.length)];
-
-        text.style.opacity="1";
-
-    },400);
-
-},15000);
