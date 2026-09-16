@@ -4,26 +4,81 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Temporary data for development
-    // These will eventually come from the Node.js API
-    const dashboardData = {
-        postureScore: 88,
-        corrections: 5,
-        weeklyTrend: "+12%",
-        aiInsight: "You maintain your best posture during the morning. Keep that routine!",
-        lastUpdated: new Date()
-    };
-
-    animateProgress(dashboardData.postureScore);
-    animateCorrections(dashboardData.corrections);
-    updateTimestamp(dashboardData.lastUpdated);
-    updateWeeklyTrend(dashboardData.weeklyTrend);
-    updateAIInsight(dashboardData.aiInsight);
+    loadUser();
+    loadLatestPosture();
+    loadAnalyticsSummary();
+    loadActivityTrends();
 
     pulseConnection();
     animateCards();
 });
 
+// ==========================
+// USER
+// ==========================
+
+async function loadUser() {
+
+    try {
+
+        const response = await fetch("/api/user/me");
+
+        if (!response.ok) {
+            throw new Error("Failed to load user");
+        }
+
+        const user = await response.json();
+
+        const welcomeMessage = document.getElementById("welcomeMessage");
+
+        if (welcomeMessage) {
+            welcomeMessage.textContent = `Welcome Back, ${user.username}!`;
+        }
+
+    } catch (error) {
+
+        console.error("User API error:", error);
+
+    }
+
+}
+
+// ==========================
+// LATEST POSTURE
+// ==========================
+
+async function loadLatestPosture() {
+
+    try {
+
+        const response = await fetch("/api/posture/latest");
+
+        if (!response.ok) {
+            throw new Error("Failed to load posture");
+        }
+
+        const data = await response.json();
+
+        animateProgress(data.score);
+
+        document.getElementById("currentStatus").textContent =
+            data.status;
+
+        document.getElementById("currentStatusDescription").textContent =
+            data.description;
+
+        document.getElementById("postureStatus").textContent =
+            `● ${data.status}`;
+
+        updateTimestamp(data.timestamp);
+
+    } catch (error) {
+
+        console.error("Posture API error:", error);
+
+    }
+
+}
 
 // ==========================
 // CIRCULAR PROGRESS
@@ -93,42 +148,56 @@ function animateCorrections(target) {
 // UPDATE TIMESTAMP
 // ==========================
 
-function updateTimestamp(lastUpdated) {
+function updateTimestamp(timestamp) {
 
-    const text = document.querySelector(".progress-card small");
+    const text = document.getElementById("lastUpdated");
 
     if (!text) return;
 
     function update() {
 
         const seconds = Math.floor(
-            (new Date() - new Date(lastUpdated)) / 1000
+            (new Date() - new Date(timestamp)) / 1000
         );
 
         text.textContent =
             `Updated ${seconds} seconds ago`;
+
     }
 
     update();
 
     setInterval(update, 1000);
+
 }
 
 
 // ==========================
-// WEEKLY TREND
+// ACTIVITY TRENDS
 // ==========================
 
-function updateWeeklyTrend(trend) {
+async function loadActivityTrends() {
 
-    const cards = document.querySelectorAll(".small-card h2");
+    try {
 
-    // Your existing design appears to use
-    // the 4th small-card for the weekly trend
-    if (cards[3]) {
-        cards[3].textContent = trend;
+        const response = await fetch("/api/analytics/trends?days=14");
+
+        if (!response.ok) {
+            throw new Error("Failed to load trends");
+        }
+
+        const data = await response.json();
+
+        createActivityChart(data);
+
+    } catch (error) {
+
+        console.error("Trends API error:", error);
+
     }
+
 }
+
 
 
 // ==========================

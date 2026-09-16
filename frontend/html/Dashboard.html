@@ -24,10 +24,10 @@
     <main class="main">
 
         <!-- Header -->
-        <div class="header">
+        <div class="welcomeMessage">
             <div>
                 <h1>
-                    Good Afternoon, Jiliana!
+                    Welcome Back, <span id="username">User</span>
                 </h1>
                 <p>
                     Here's your posture overview for today
@@ -69,7 +69,7 @@
 
                     <div class="progress-text">
 
-                        <h2 class="score">0%</h2>
+                        <h2 class="score" id="postureScore">0%</h2>
 
                         <p>Posture Score</p>
 
@@ -77,8 +77,8 @@
 
                 </div>
 
-                <div class="status-pill">
-                    ● Good Posture
+                <div class="status-pill" id="postureStatus">
+                    Loading...
                 </div>
 
                 <small>
@@ -99,10 +99,9 @@
 
                     <h4>CURRENT STATUS</h4>
 
-                    <h2>Good</h2>
+                    <h2 id="currentStatus">Loading...</h2>
 
-                    <p>Posture aligned</p>
-
+                    <p id="currentStatusDescription">Loading...</p>
                 </div>
 
                 <div class="small-card">
@@ -127,9 +126,9 @@
 
                     <h4>TODAY'S CORRECTIONS</h4>
 
-                    <h2 id="corrections">5</h2>
+                    <h2 id="corrections">0</h2>
 
-                    <p>3 fewer than yesterday</p>
+                    <p id="correctionsComparison">Loading...</p>
 
                 </div>
 
@@ -141,10 +140,9 @@
 
                     <h4>WEEKLY TREND</h4>
 
-                    <h2>+14%</h2>
+                    <h2 id="weeklyTrend">0%</h2>
 
-                    <p>Improving steadily</p>
-
+                    <p id="weeklyTrendDescription">Loading...</p>
                 </div>
 
             </div>
@@ -165,18 +163,8 @@
 
                 <h2>AI Insight</h2>
 
-                <p>
-
-                    "You usually begin slouching around
-                    <strong>2 PM</strong>.
-                    Consider setting a break reminder at
-                    <strong>1:45 PM</strong>
-                    to prevent this pattern.
-
-                    Your morning posture has improved by
-                    <strong>12%</strong>
-                    this week — keep it up!"
-
+                <p id="aiInsight">
+                    Loading AI insight...
                 </p>
 
                 <div class="insight-footer">
@@ -189,8 +177,8 @@
                         •
                     </span>
 
-                    <span>
-                        Analyzed 847 data points
+                    <span id="dataPoints">
+                        Analyzed 0 data points
                     </span>
 
                 </div>
@@ -208,7 +196,7 @@
                 <h2>Today's Activity</h2>
 
                 <div class="placeholder-chart">
-                    Activity Graph Here
+                     <canvas id="activityChart"></canvas>
                 </div>
 
             </div>

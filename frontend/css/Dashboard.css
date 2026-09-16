@@ -180,27 +180,27 @@ nav li.active:hover {
    HEADER
 ========================= */
 
-.header {
+.welcomeMessage {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 35px;
 }
 
-.header h1 {
+.welcomeMessage h1 {
     font-size: 2rem;
     color: #1f2937;
     margin-bottom: 8px;
 }
 
-.header p {
+.welcomeMessage p {
     color: #6b7280;
     font-size: 15px;
 }
 
 .connection {
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 10px;
     background: white;
     padding: 12px 20px;
