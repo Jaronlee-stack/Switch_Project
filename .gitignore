@@ -1,7 +1,9 @@
 *.jpg
 # Python virtual environments
-
+venv/
+venv311/
 env/
 
 # Python cache
 __pycache__/
+node_modules/
